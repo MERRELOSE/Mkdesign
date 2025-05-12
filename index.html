@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKDesign | Creative Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/i18next@23.15.1/dist/umd/i18next.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+        }
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 1s ease-in-out;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        .active:after {
+            width: 100%;
+        }
+        .project-card {
+            transition: all 0.3s ease;
+            perspective: 1000px;
+        }
+        .project-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .project-card:hover .project-card-inner {
+            transform: rotateY(180deg);
+        }
+        .project-card-front, .project-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .project-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Language Switcher -->
+    <div class="fixed top-4 right-4 z-50">
+        <select id="language-switcher" class="px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="en">English</option>
+            <option value="fr" selected>Français</option>
+            <option value="tr">Türkçe</option>
+        </select>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold gradient-text">MKDesign</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-8">
+                        <a href="#home" class="nav-link px-3 py-2 text-sm font-medium active" data-i18n="nav.home">Home</a>
+                        <a href="#about" class="nav-link px-3 py-2 text-sm font-medium" data-i18n="nav.about">About</a>
+                        <a href="#skills" class="nav-link px-3 py-2 text-sm font-medium" data-i18n="nav.skills">Skills</a>
+                        <a href="#projects" class="nav-link px-3 py-2 text-sm font-medium" data-i18n="nav.projects">Projects</a>
+                        <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium" data-i18n="nav.contact">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" data-i18n="nav.home">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" data-i18n="nav.about">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" data-i18n="nav.skills">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" data-i18n="nav.projects">Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100" data-i18n="nav.contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient pt-32 pb-20 md:pt-40 md:pb-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Hi, I'm <span class="gradient-text">MKDesign</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl text-gray-600 mb-8" data-i18n="hero.title">Creative Designer & Developer</h2>
+                    <p class="text-lg text-gray-600 mb-10 max-w-lg mx-auto lg:mx-0" data-i18n="hero.description">
+                        I create beautiful, functional digital experiences that help businesses grow and stand out in the digital world.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#projects" class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105" data-i18n="hero.viewWork">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="px-8 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-full hover:border-blue-500 hover:text-blue-500 transition duration-300" data-i18n="hero.contactMe">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 mt-12 lg:mt-0 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-20 blur-xl"></div>
+                        <div class="absolute inset-0 bg-white rounded-full shadow-2xl flex items-center justify-center overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4"><span data-i18n="about.title">About</span> <span class="gradient-text">Me</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+            </div>
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/3 mb-10 lg:mb-0 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="About Me" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="lg:w-2/3 lg:pl-16">
+                    <h3 class="text-2xl font-bold mb-6" data-i18n="about.who">Who am I?</h3>
+                    <p class="text-gray-600 mb-6" data-i18n="about.description1">
+                        I'm a passionate designer and developer with over 5 years of experience creating digital experiences that matter. My journey began with a love for art and technology, which eventually led me to the world of digital design and development.
+                    </p>
+                    <p class="text-gray-600 mb-8" data-i18n="about.description2">
+                        I specialize in creating visually stunning and highly functional websites and applications. My approach combines aesthetic sensibility with technical expertise to deliver solutions that not only look great but also perform exceptionally.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-palette text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-i18n="about.uiux">UI/UX Design</h4>
+                                <p class="text-gray-600" data-i18n="about.uiuxDescription">Creating intuitive and beautiful user interfaces that enhance user experience.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-code text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-i18n="about.webdev">Web Development</h4>
+                                <p class="text-gray-600" data-i18n="about.webdevDescription">Building responsive, fast, and accessible websites with modern technologies.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-mobile-alt text-indigo-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-i18n="about.mobile">Mobile Design</h4>
+                                <p class="text-gray-600" data-i18n="about.mobileDescription">Designing mobile applications that provide seamless user experiences.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-pink-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-chart-line text-pink-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-i18n="about.strategy">Digital Strategy</h4>
+                                <p class="text-gray-600" data-i18n="about.strategyDescription">Developing comprehensive digital strategies to achieve business goals.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-full shadow-md hover:shadow-lg transition duration-300" data-i18n="about.downloadCV">
+                        Download CV <i class="fas fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4"><span data-i18n="skills.title">My</span> <span class="gradient-text">Skills</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-8" data-i18n="skills.design">Design Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium" data-i18n="skills.uiux">UI/UX Design</span>
+                                <span class="text-gray-600">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium" data-i18n="skills.graphic">Graphic Design</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium" data-i18n="skills.brand">Brand Identity</span>
+                                <span class="text-gray-600">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium" data-i18n="skills.illustration">Illustration</span>
+                                <span class="text-gray-600">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-8" data-i18n="skills.development">Development Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">HTML/CSS</span>
+                                <span class="text-gray-600">98%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Laravel</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">React</span>
+                                <span class="text-gray-600">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Node.js</span>
+                                <span class="text-gray-600">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold mb-8 text-center" data-i18n="skills.tools">Tools & Technologies</h3>
+                <div class="flex flex-wrap justify-center gap-8">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-figma text-3xl text-purple-600"></i>
+                        </div>
+                        <span class="text-sm font-medium">Figma</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-adobe text-3xl text-red-600"></i>
+                        </div>
+                        <span class="text-sm font-medium">Adobe CC</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-react text-3xl text-blue-400"></i>
+                        </div>
+                        <span class="text-sm font-medium">React</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-node-js text-3xl text-green-600"></i>
+                        </div>
+                        <span class="text-sm font-medium">Node.js</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-git-alt text-3xl text-orange-600"></i>
+                        </div>
+                        <span class="text-sm font-medium">Git</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-laravel text-3xl text-red-600"></i>
+                        </div>
+                        <span class="text-sm font-medium">Laravel</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <img src="https://www.canva.com/favicon.ico" alt="Canva" class="w-8 h-8">
+                        </div>
+                        <span class="text-sm font-medium">Canva</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <img src="https://www.capcut.com/favicon.ico" alt="Capcut" class="w-8 h-8">
+                        </div>
+                        <span class="text-sm font-medium">Capcut</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fas fa-database text-3xl text-blue-600"></i>
+                        </div>
+                        <span class="text-sm font-medium">MySQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4"><span data-i18n="projects.title">My</span> <span class="gradient-text">Projects</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto" data-i18n="projects.description">Here are some of my recent projects that showcase my skills and expertise.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card h-80 relative">
+                    <div class="project-card-inner h-full w-full">
+                        <div class="project-card-front absolute h-full w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 1" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2" data-i18n="projects.ecommerce">E-commerce Platform</h3>
+                                <p class="text-gray-600" data-i18n="projects.ecommerceDescription">A modern e-commerce solution with seamless checkout experience.</p>
+                            </div>
+                        </div>
+                        <div class="project-card-back absolute h-full w-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 flex flex-col justify-center items-center text-white">
+                            <h3 class="text-xl font-bold mb-4" data-i18n="projects.ecommerce">E-commerce Platform</h3>
+                            <p class="text-center mb-6" data-i18n="projects.ecommerceDetails">Built with React, Node.js, and MySQL. Features include product filtering, cart system, and secure payments.</p>
+                            <div class="flex space-x-4">
+                                <a href="#" class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition" data-i18n="projects.viewDemo">View Demo</a>
+                                <a href="#" class="px-4 py-2 border border-white text-white rounded-full font-medium hover:bg-white hover:text-blue-600 transition" data-i18n="projects.details">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card h-80 relative">
+                    <div class="project-card-inner h-full w-full">
+                        <div class="project-card-front absolute h-full w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Project 2" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2" data-i18n="projects.travel">Travel App</h3>
+                                <p class="text-gray-600" data-i18n="projects.travelDescription">Mobile app for discovering and booking unique travel experiences.</p>
+                            </div>
+                        </div>
+                        <div class="project-card-back absolute h-full w-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 flex flex-col justify-center items-center text-white">
+                            <h3 class="text-xl font-bold mb-4" data-i18n="projects.travel">Travel App</h3>
+                            <p class="text-center mb-6" data-i18n="projects.travelDetails">React Native application with Laravel backend. Includes location services, booking system, and user reviews.</p>
+                            <div class="flex space-x-4">
+                                <a href="#" class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition" data-i18n="projects.viewDemo">View Demo</a>
+                                <a href="#" class="px-4 py-2 border border-white text-white rounded-full font-medium hover:bg-white hover:text-blue-600 transition" data-i18n="projects.details">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card h-80 relative">
+                    <div class="project-card-inner h-full w-full">
+                        <div class="project-card-front absolute h-full w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 3" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2" data-i18n="projects.task">Task Management</h3>
+                                <p class="text-gray-600" data-i18n="projects.taskDescription">Collaborative task management system for teams.</p>
+                            </div>
+                        </div>
+                        <div class="project-card-back absolute h-full w-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 flex flex-col justify-center items-center text-white">
+                            <h3 class="text-xl font-bold mb-4" data-i18n="projects.task">Task Management</h3>
+                            <p class="text-center mb-6" data-i18n="projects.taskDetails">Vue.js application with real-time updates using Laravel and MySQL. Features include task assignment, progress tracking, and team collaboration.</p>
+                            <div class="flex space-x-4">
+                                <a href="#" class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition" data-i18n="projects.viewDemo">View Demo</a>
+                                <a href="#" class="px-4 py-2 border border-white text-white rounded-full font-medium hover:bg-white hover:text-blue-600 transition" data-i18n="projects.details">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-6 py-3 border-2 border-blue-500 text-blue-500 font-medium rounded-full hover:bg-blue-500 hover:text-white transition duration-300" data-i18n="projects.viewAll">
+                    View All Projects <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4"><span data-i18n="testimonials.title">Client</span> <span class="gradient-text">Testimonials</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto" data-i18n="testimonials.description">What my clients say about my work and professionalism.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <p class="text-gray-600 text-sm" data-i18n="testimonials.client1Role">CEO, TechSolutions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4" data-i18n="testimonials.client1">Working with MKDesign was an absolute pleasure. They delivered our e-commerce platform ahead of schedule and it has significantly boosted our online sales.</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <p class="text-gray-600 text-sm" data-i18n="testimonials.client2Role">Founder, TravelBug</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4" data-i18n="testimonials.client2">The travel app MKDesign created for us exceeded all expectations. Their attention to detail and user experience focus is remarkable.</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Emily Rodriguez</h4>
+                            <p class="text-gray-600 text-sm" data-i18n="testimonials.client3Role">Marketing Director, TeamWorks</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4" data-i18n="testimonials.client3">MKDesign transformed our internal task management system. The team is now more productive than ever thanks to their intuitive design.</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4"><span data-i18n="contact.title">Get In</span> <span class="gradient-text">Touch</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto" data-i18n="contact.description">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <form id="contact-form" action="https://formspree.io/f/mvgawkbr" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.name">Your Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.email">Your Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.subject">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.message">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required></textarea>
+                        </div>
+                        <button type="submit" id="submit-button" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105" data-i18n="contact.send">
+                            Send Message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                        <p id="form-message" class="text-center text-sm text-gray-600 hidden"></p>
+                    </form>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-xl h-full">
+                        <h3 class="text-2xl font-bold mb-6" data-i18n="contact.info">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1" data-i18n="contact.location">Location</h4>
+                                    <p class="text-gray-600">Fidjrossè - Cotonou, Benin</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-purple-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1" data-i18n="contact.email">Email</h4>
+                                    <p class="text-gray-600">kennedymerrelose@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-indigo-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-indigo-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1" data-i18n="contact.phone">Phone</h4>
+                                    <p class="text-gray-600">+229 0150902241</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="font-bold text-lg mb-4" data-i18n="contact.follow">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-gray-600 hover:text-blue-500 transition">
+                                    <i class="fab fa-github text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-600 hover:text-blue-500 transition">
+                                    <i class="fab fa-linkedin text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-600 hover:text-blue-500 transition">
+                                    <i class="fab fa-x-twitter text-2xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 gradient-text">MKDesign</h3>
+                    <p class="text-gray-400" data-i18n="footer.description">Crafting digital experiences that inspire and perform.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-i18n="footer.links">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition" data-i18n="nav.home">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition" data-i18n="nav.about">About</a></li>
+                        <li><a href="#skills" class="text-gray-400 hover:text-white transition" data-i18n="nav.skills">Skills</a></li>
+                        <li><a href="#projects" class="text-gray-400 hover:text-white transition" data-i18n="nav.projects">Projects</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition" data-i18n="nav.contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4" data-i18n="footer.contact">Get In Touch</h3>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-envelope mr-2"></i> kennedymerrelose@gmail.com</p>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-phone-alt mr-2"></i> +229 0150902241</p>
+                    <p class="text-gray-400"><i class="fas fa-map-marker-alt mr-2"></i> Fidjrossè - Cotonou, Benin</p>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-6 text-center">
+                <p class="text-gray-400" data-i18n="footer.copyright">© 2025 MKDesign. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize i18next
+        i18next.init({
+            lng: 'fr', // Default language
+            debug: false,
+            resources: {
+                en: {
+                    translation: {
+                        "nav": {
+                            "home": "Home",
+                            "about": "About",
+                            "skills": "Skills",
+                            "projects": "Projects",
+                            "contact": "Contact"
+                        },
+                        "hero": {
+                            "greeting": "Hi, I'm",
+                            "title": "Creative Designer & Developer",
+                            "description": "I create beautiful, functional digital experiences that help businesses grow and stand out in the digital world.",
+                            "viewWork": "View My Work",
+                            "contactMe": "Contact Me"
+                        },
+                        "about": {
+                            "title": "About",
+                            "who": "Who am I?",
+                            "description1": "I'm a passionate designer and developer with over 5 years of experience creating digital experiences that matter. My journey began with a love for art and technology, which eventually led me to the world of digital design and development.",
+                            "description2": "I specialize in creating visually stunning and highly functional websites and applications. My approach combines aesthetic sensibility with technical expertise to deliver solutions that not only look great but also perform exceptionally.",
+                            "uiux": "UI/UX Design",
+                            "uiuxDescription": "Creating intuitive and beautiful user interfaces that enhance user experience.",
+                            "webdev": "Web Development",
+                            "webdevDescription": "Building responsive, fast, and accessible websites with modern technologies.",
+                            "mobile": "Mobile Design",
+                            "mobileDescription": "Designing mobile applications that provide seamless user experiences.",
+                            "strategy": "Digital Strategy",
+                            "strategyDescription": "Developing comprehensive digital strategies to achieve business goals.",
+                            "downloadCV": "Download CV"
+                        },
+                        "skills": {
+                            "title": "My",
+                            "design": "Design Skills",
+                            "development": "Development Skills",
+                            "tools": "Tools & Technologies",
+                            "uiux": "UI/UX Design",
+                            "graphic": "Graphic Design",
+                            "brand": "Brand Identity",
+                            "illustration": "Illustration"
+                        },
+                        "projects": {
+                            "title": "My",
+                            "description": "Here are some of my recent projects that showcase my skills and expertise.",
+                            "ecommerce": "E-commerce Platform",
+                            "ecommerceDescription": "A modern e-commerce solution with seamless checkout experience.",
+                            "ecommerceDetails": "Built with React, Node.js, and MySQL. Features include product filtering, cart system, and secure payments.",
+                            "travel": "Travel App",
+                            "travelDescription": "Mobile app for discovering and booking unique travel experiences.",
+                            "travelDetails": "React Native application with Laravel backend. Includes location services, booking system, and user reviews.",
+                            "task": "Task Management",
+                            "taskDescription": "Collaborative task management system for teams.",
+                            "taskDetails": "Vue.js application with real-time updates using Laravel and MySQL. Features include task assignment, progress tracking, and team collaboration.",
+                            "viewDemo": "View Demo",
+                            "details": "Details",
+                            "viewAll": "View All Projects"
+                        },
+                        "testimonials": {
+                            "title": "Client",
+                            "description": "What my clients say about my work and professionalism.",
+                            "client1": "Working with MKDesign was an absolute pleasure. They delivered our e-commerce platform ahead of schedule and it has significantly boosted our online sales.",
+                            "client1Role": "CEO, TechSolutions",
+                            "client2": "The travel app MKDesign created for us exceeded all expectations. Their attention to detail and user experience focus is remarkable.",
+                            "client2Role": "Founder, TravelBug",
+                            "client3": "MKDesign transformed our internal task management system. The team is now more productive than ever thanks to their intuitive design.",
+                            "client3Role": "Marketing Director, TeamWorks"
+                        },
+                        "contact": {
+                            "title": "Get In",
+                            "description": "Have a project in mind or want to discuss potential opportunities? Feel free to reach out!",
+                            "name": "Your Name",
+                            "email": "Your Email",
+                            "subject": "Subject",
+                            "message": "Message",
+                            "send": "Send Message",
+                            "info": "Contact Information",
+                            "location": "Location",
+                            "phone": "Phone",
+                            "follow": "Follow Me"
+                        },
+                        "footer": {
+                            "description": "Crafting digital experiences that inspire and perform.",
+                            "links": "Quick Links",
+                            "contact": "Get In Touch",
+                            "copyright": "© 2025 MKDesign. All rights reserved."
+                        }
+                    }
+                },
+                fr: {
+                    translation: {
+                        "nav": {
+                            "home": "Accueil",
+                            "about": "À propos",
+                            "skills": "Compétences",
+                            "projects": "Projets",
+                            "contact": "Contact"
+                        },
+                        "hero": {
+                            "greeting": "Salut, je suis",
+                            "title": "Designer & Développeur Créatif",
+                            "description": "Je crée des expériences numériques belles et fonctionnelles qui aident les entreprises à croître et à se démarquer dans le monde numérique.",
+                            "viewWork": "Voir mon travail",
+                            "contactMe": "Me contacter"
+                        },
+                        "about": {
+                            "title": "À propos",
+                            "who": "Qui suis-je ?",
+                            "description1": "Je suis un designer et développeur passionné avec plus de 5 ans d'expérience dans la création d'expériences numériques qui comptent. Mon parcours a commencé par une passion pour l'art et la technologie, ce qui m'a finalement conduit au monde du design et du développement numérique.",
+                            "description2": "Je me spécialise dans la création de sites web et d'applications visuellement époustouflants et hautement fonctionnels. Mon approche combine une sensibilité esthétique avec une expertise technique pour offrir des solutions qui non seulement sont belles, mais qui performent également de manière exceptionnelle.",
+                            "uiux": "Design UI/UX",
+                            "uiuxDescription": "Création d'interfaces utilisateur intuitives et belles qui améliorent l'expérience utilisateur.",
+                            "webdev": "Développement Web",
+                            "webdevDescription": "Construction de sites web réactifs, rapides et accessibles avec des technologies modernes.",
+                            "mobile": "Design Mobile",
+                            "mobileDescription": "Conception d'applications mobiles offrant des expériences utilisateur fluides.",
+                            "strategy": "Stratégie Numérique",
+                            "strategyDescription": "Développement de stratégies numériques complètes pour atteindre les objectifs commerciaux.",
+                            "downloadCV": "Télécharger CV"
+                        },
+                        "skills": {
+                            "title": "Mes",
+                            "design": "Compétences en Design",
+                            "development": "Compétences en Développement",
+                            "tools": "Outils & Technologies",
+                            "uiux": "Design UI/UX",
+                            "graphic": "Design Graphique",
+                            "brand": "Identité de Marque",
+                            "illustration": "Illustration"
+                        },
+                        "projects": {
+                            "title": "Mes",
+                            "description": "Voici quelques-uns de mes projets récents qui mettent en valeur mes compétences et mon expertise.",
+                            "ecommerce": "Plateforme E-commerce",
+                            "ecommerceDescription": "Une solution e-commerce moderne avec une expérience de paiement fluide.",
+                            "ecommerceDetails": "Construit avec React, Node.js et MySQL. Inclut le filtrage de produits, un système de panier et des paiements sécurisés.",
+                            "travel": "Application de Voyage",
+                            "travelDescription": "Application mobile pour découvrir et réserver des expériences de voyage uniques.",
+                            "travelDetails": "Application React Native avec backend Laravel. Inclut les services de localisation, un système de réservation et des avis d'utilisateurs.",
+                            "task": "Gestion de Tâches",
+                            "taskDescription": "Système de gestion de tâches collaboratif pour les équipes.",
+                            "taskDetails": "Application Vue.js avec mises à jour en temps réel utilisant Laravel et MySQL. Inclut l'attribution de tâches, le suivi des progrès et la collaboration d'équipe.",
+                            "viewDemo": "Voir la Démo",
+                            "details": "Détails",
+                            "viewAll": "Voir Tous les Projets"
+                        },
+                        "testimonials": {
+                            "title": "Client",
+                            "description": "Ce que mes clients disent de mon travail et de mon professionnalisme.",
+                            "client1": "Travailler avec MKDesign a été un réel plaisir. Ils ont livré notre plateforme e-commerce en avance et cela a considérablement boosté nos ventes en ligne.",
+                            "client1Role": "PDG, TechSolutions",
+                            "client2": "L'application de voyage créée par MKDesign a dépassé toutes nos attentes. Leur attention aux détails et leur focus sur l'expérience utilisateur sont remarquables.",
+                            "client2Role": "Fondateur, TravelBug",
+                            "client3": "MKDesign a transformé notre système de gestion de tâches interne. L'équipe est maintenant plus productive que jamais grâce à leur design intuitif.",
+                            "client3Role": "Directrice Marketing, TeamWorks"
+                        },
+                        "contact": {
+                            "title": "Entrer en",
+                            "description": "Vous avez un projet en tête ou souhaitez discuter d'opportunités potentielles ? N'hésitez pas à me contacter !",
+                            "name": "Votre Nom",
+                            "email": "Votre Email",
+                            "subject": "Sujet",
+                            "message": "Message",
+                            "send": "Envoyer le Message",
+                            "info": "Informations de Contact",
+                            "location": "Localisation",
+                            "phone": "Téléphone",
+                            "follow": "Suivez-moi"
+                        },
+                        "footer": {
+                            "description": "Création d'expériences numériques qui inspirent et performent.",
+                            "links": "Liens Rapides",
+                            "contact": "Entrer en Contact",
+                            "copyright": "© 2025 MKDesign. Tous droits réservés."
+                        }
+                    }
+                },
+                tr: {
+                    translation: {
+                        "nav": {
+                            "home": "Ana Sayfa",
+                            "about": "Hakkımda",
+                            "skills": "Yetenekler",
+                            "projects": "Projeler",
+                            "contact": "İletişim"
+                        },
+                        "hero": {
+                            "greeting": "Merhaba, ben",
+                            "title": "Yaratıcı Tasarımcı & Geliştirici",
+                            "description": "İşletmelerin büyümesine ve dijital dünyada öne çıkmasına yardımcı olan güzel ve işlevsel dijital deneyimler yaratıyorum.",
+                            "viewWork": "Çalışmalarımı Gör",
+                            "contactMe": "Bana Ulaş"
+                        },
+                        "about": {
+                            "title": "Hakkımda",
+                            "who": "Ben kimim?",
+                            "description1": "5 yıldan fazla deneyime sahip, önemli dijital deneyimler yaratan tutkulu bir tasarımcı ve geliştiriciyim. Yolculuğum, sanat ve teknolojiye olan sevgimle başladı ve sonunda dijital tasarım ve geliştirme dünyasına ulaştı.",
+                            "description2": "Görsel olarak çarpıcı ve son derece işlevsel web siteleri ve uygulamalar oluşturma konusunda uzmanım. Estetik duyarlılığı teknik uzmanlıkla birleştiren yaklaşımım, yalnızca harika görünen değil, aynı zamanda olağanüstü performans gösteren çözümler sunar.",
+                            "uiux": "UI/UX Tasarımı",
+                            "uiuxDescription": "Kullanıcı deneyimini geliştiren sezgisel ve güzel kullanıcı arayüzleri oluşturma.",
+                            "webdev": "Web Geliştirme",
+                            "webdevDescription": "Modern teknolojilerle duyarlı, hızlı ve erişilebilir web siteleri oluşturma.",
+                            "mobile": "Mobil Tasarım",
+                            "mobileDescription": "Sorunsuz kullanıcı deneyimleri sunan mobil uygulamalar tasarlama.",
+                            "strategy": "Dijital Strateji",
+                            "strategyDescription": "İş hedeflerine ulaşmak için kapsamlı dijital stratejiler geliştirme.",
+                            "downloadCV": "CV İndir"
+                        },
+                        "skills": {
+                            "title": "Benim",
+                            "design": "Tasarım Yetenekleri",
+                            "development": "Geliştirme Yetenekleri",
+                            "tools": "Araçlar ve Teknolojiler",
+                            "uiux": "UI/UX Tasarımı",
+                            "graphic": "Grafik Tasarım",
+                            "brand": "Marka Kimliği",
+                            "illustration": "İllüstrasyon"
+                        },
+                        "projects": {
+                            "title": "Benim",
+                            "description": "Yeteneklerimi ve uzmanlığımı gösteren son projelerimden bazıları.",
+                            "ecommerce": "E-ticaret Platformu",
+                            "ecommerceDescription": "Sorunsuz ödeme deneyimi sunan modern bir e-ticaret çözümü.",
+                            "ecommerceDetails": "React, Node.js ve MySQL ile inşa edildi. Ürün filtreleme, sepet sistemi ve güvenli ödemeler içerir.",
+                            "travel": "Seyahat Uygulaması",
+                            "travelDescription": "Eşsiz seyahat deneyimleri keşfetmek ve rezervasyon yapmak için mobil uygulama.",
+                            "travelDetails": "Laravel backend ile React Native uygulaması. Konum servisleri, rezervasyon sistemi ve kullanıcı yorumlarını içerir.",
+                            "task": "Görev Yönetimi",
+                            "taskDescription": "Ekipler için işbirlikçi görev yönetim sistemi.",
+                            "taskDetails": "Laravel ve MySQL ile gerçek zamanlı güncellemeler sunan Vue.js uygulaması. Görev atama, ilerleme takibi ve ekip işbirliği özelliklerini içerir.",
+                            "viewDemo": "Demoyu Gör",
+                            "details": "Detaylar",
+                            "viewAll": "Tüm Projeleri Gör"
+                        },
+                        "testimonials": {
+                            "title": "Müşteri",
+                            "description": "Müşterilerimin çalışmalarımla ve profesyonelliğimle ilgili söyledikleri.",
+                            "client1": "MKDesign ile çalışmak tam bir zevkti. E-ticaret platformumuzu zamanından önce teslim ettiler ve bu, çevrimiçi satışlarımızı önemli ölçüde artırdı.",
+                            "client1Role": "CEO, TechSolutions",
+                            "client2": "MKDesign'in bizim için oluşturduğu seyahat uygulaması tüm beklentileri aştı. Detaylara verdikleri önem ve kullanıcı deneyimine odaklanmaları dikkat çekici.",
+                            "client2Role": "Kurucu, TravelBug",
+                            "client3": "MKDesign, iç görev yönetim sistemimizi dönüştürdü. Ekip, sezgisel tasarımları sayesinde artık her zamankinden daha üretken.",
+                            "client3Role": "Pazarlama Direktörü, TeamWorks"
+                        },
+                        "contact": {
+                            "title": "İletişime",
+                            "description": "Aklınızda bir proje mi var veya olası fırsatları tartışmak mı istiyorsunuz? Bana ulaşmaktan çekinmeyin!",
+                            "name": "Adınız",
+                            "email": "E-postanız",
+                            "subject": "Konu",
+                            "message": "Mesaj",
+                            "send": "Mesaj Gönder",
+                            "info": "İletişim Bilgileri",
+                            "location": "Konum",
+                            "phone": "Telefon",
+                            "follow": "Beni Takip Et"
+                        },
+                        "footer": {
+                            "description": "İlham veren ve performans gösteren dijital deneyimler yaratma.",
+                            "links": "Hızlı Bağlantılar",
+                            "contact": "İletişime Geç",
+                            "copyright": "© 2025 MKDesign. Tüm hakları saklıdır."
+                        }
+                    }
+                }
+            }
+        }, function(err, t) {
+            if (err) return console.error(err);
+            // Initialize translation
+            updateContent();
+        });
+
+        // Update content based on language
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                element.textContent = i18next.t(key);
+            });
+        }
+
+        // Language switcher
+        document.getElementById('language-switcher').addEventListener('change', (e) => {
+            i18next.changeLanguage(e.target.value, () => {
+                updateContent();
+                document.documentElement.lang = e.target.value;
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form submission handling
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('contact-form');
+            const submitButton = document.getElementById('submit-button');
+            const formMessage = document.getElementById('form-message');
+            
+            // Reset message
+            formMessage.classList.add('hidden');
+            formMessage.classList.remove('text-green-600', 'text-red-600');
+            
+            // Disable button and show loading
+            submitButton.disabled = true;
+            submitButton.innerHTML = i18next.t('contact.send') + ' <i class="fas fa-spinner fa-spin ml-2"></i>';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Show success message
+                    formMessage.textContent = i18next.t('contact.success') || 'Message sent successfully!';
+                    formMessage.classList.add('text-green-600');
+                    formMessage.classList.remove('hidden');
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Show error message
+                formMessage.textContent = i18next.t('contact.error') || 'Failed to send message. Please try again.';
+                formMessage.classList.add('text-red-600');
+                formMessage.classList.remove('hidden');
+            } finally {
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.innerHTML = i18next.t('contact.send') + ' <i class="fas fa-paper-plane ml-2"></i>';
+            }
+        }
+
+        // Attach form submit handler
+        document.getElementById('contact-form').addEventListener('submit', handleSubmit);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
