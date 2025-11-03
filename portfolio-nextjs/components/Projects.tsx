@@ -2,27 +2,26 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
-import { Code2, Database, Globe, Palette } from "lucide-react";
+import { TechIcons } from "./TechIcons";
 
-const techIcons: { [key: string]: { icon: string; color: string } } = {
-  "Laravel": { icon: "🔴", color: "bg-red-50 text-red-600" },
-  "React": { icon: "⚛️", color: "bg-blue-50 text-blue-600" },
-  "Next.js": { icon: "▲", color: "bg-gray-50 text-gray-900" },
-  "Vue.js": { icon: "💚", color: "bg-green-50 text-green-600" },
-  "Node.js": { icon: "🟢", color: "bg-green-50 text-green-700" },
-  "Python": { icon: "🐍", color: "bg-blue-50 text-blue-700" },
-  "MySQL": { icon: "🐬", color: "bg-blue-50 text-blue-600" },
-  "PostgreSQL": { icon: "🐘", color: "bg-blue-50 text-blue-600" },
-  "MongoDB": { icon: "🍃", color: "bg-green-50 text-green-600" },
-  "HTML5": { icon: "🌐", color: "bg-orange-50 text-orange-600" },
-  "CSS3": { icon: "🎨", color: "bg-blue-50 text-blue-600" },
-  "TypeScript": { icon: "📘", color: "bg-blue-50 text-blue-600" },
-  "Tailwind": { icon: "💨", color: "bg-cyan-50 text-cyan-600" },
-  "Socket.io": { icon: "🔌", color: "bg-gray-50 text-gray-700" },
-  "FastAPI": { icon: "⚡", color: "bg-teal-50 text-teal-600" },
-  "Chart.js": { icon: "📊", color: "bg-purple-50 text-purple-600" },
-  "Stripe": { icon: "💳", color: "bg-indigo-50 text-indigo-600" },
-  "AWS S3": { icon: "☁️", color: "bg-orange-50 text-orange-600" },
+// Type pour les clés de TechIcons
+type TechKey = keyof typeof TechIcons;
+
+// Map des couleurs pour chaque technologie
+const techColors: Record<string, string> = {
+  "Laravel": "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
+  "React": "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
+  "Next.js": "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200",
+  "Vue.js": "bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400",
+  "Node.js": "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400",
+  "Python": "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400",
+  "MySQL": "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
+  "PostgreSQL": "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
+  "HTML5": "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400",
+  "CSS3": "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
+  "TypeScript": "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
+  "PHP": "bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400",
+  "FastAPI": "bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400",
 };
 
 const projects = [
@@ -53,7 +52,7 @@ const projects = [
   {
     title: "Real-time Chat Application",
     description: "WebSocket-based chat application with real-time messaging, file sharing, and user presence indicators. Supports group chats and direct messages.",
-    tags: ["Node.js", "Socket.io", "React", "HTML5", "CSS3"],
+    tags: ["Node.js", "React", "HTML5", "CSS3"],
     image: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     github: "#",
     live: "#",
@@ -77,6 +76,11 @@ const projects = [
 ];
 
 export default function Projects() {
+  const getTechIcon = (techName: string) => {
+    const IconComponent = TechIcons[techName as TechKey];
+    return IconComponent;
+  };
+
   return (
     <section id="projects" className="py-24 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -127,17 +131,20 @@ export default function Projects() {
 
                 {/* Technology Icons */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <div
-                      key={tag}
-                      className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-                        techIcons[tag]?.color || "bg-gray-100 text-gray-700"
-                      }`}
-                    >
-                      <span className="text-sm">{techIcons[tag]?.icon || "🔧"}</span>
-                      <span>{tag}</span>
-                    </div>
-                  ))}
+                  {project.tags.map((tag) => {
+                    const IconComponent = getTechIcon(tag);
+                    return (
+                      <div
+                        key={tag}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-full text-xs font-medium ${
+                          techColors[tag] || "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                        }`}
+                      >
+                        {IconComponent && <IconComponent className="w-4 h-4" />}
+                        <span>{tag}</span>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* Links */}

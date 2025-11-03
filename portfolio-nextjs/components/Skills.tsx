@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { TechIcons } from "./TechIcons";
 
 const skillCategories = [
   {
@@ -9,7 +10,7 @@ const skillCategories = [
       { name: "Laravel", level: 95, color: "from-red-500 to-orange-500" },
       { name: "PHP", level: 90, color: "from-indigo-500 to-purple-500" },
       { name: "Python", level: 85, color: "from-blue-500 to-cyan-500" },
-      { name: "Node.js", level: 80, color: "from-green-500 to-emerald-500" },
+      { name: "NodeJS", level: 80, color: "from-green-500 to-emerald-500" },
     ],
   },
   {
@@ -18,9 +19,9 @@ const skillCategories = [
       { name: "HTML5", level: 98, color: "from-orange-500 to-red-500" },
       { name: "CSS3", level: 95, color: "from-blue-500 to-cyan-500" },
       { name: "React", level: 90, color: "from-cyan-500 to-blue-500" },
-      { name: "Next.js", level: 88, color: "from-gray-700 to-gray-900" },
+      { name: "NextJS", level: 88, color: "from-gray-700 to-gray-900" },
       { name: "TypeScript", level: 85, color: "from-blue-600 to-blue-700" },
-      { name: "Tailwind CSS", level: 95, color: "from-teal-500 to-cyan-500" },
+      { name: "Tailwind", level: 95, color: "from-teal-500 to-cyan-500" },
     ],
   },
   {
@@ -41,6 +42,22 @@ const skillCategories = [
       { name: "Performance Optimization", level: 88, color: "from-yellow-500 to-orange-500" },
     ],
   },
+];
+
+const techStack = [
+  { name: "HTML5", icon: "HTML5" },
+  { name: "CSS3", icon: "CSS3" },
+  { name: "Laravel", icon: "Laravel" },
+  { name: "React", icon: "React" },
+  { name: "Next.js", icon: "NextJS" },
+  { name: "Python", icon: "Python" },
+  { name: "MySQL", icon: "MySQL" },
+  { name: "TypeScript", icon: "TypeScript" },
+  { name: "Tailwind", icon: "Tailwind" },
+  { name: "Git", icon: "Git" },
+  { name: "Docker", icon: "Docker" },
+  { name: "Figma", icon: "Figma" },
+  { name: "Upwork", icon: "Upwork" },
 ];
 
 export default function Skills() {
@@ -116,34 +133,27 @@ export default function Skills() {
             Technologies & Platforms I Work With
           </h3>
           <div className="flex flex-wrap justify-center gap-6">
-            {[
-              { name: "HTML5", icon: "🌐" },
-              { name: "CSS3", icon: "🎨" },
-              { name: "Laravel", icon: "🔴" },
-              { name: "React", icon: "⚛️" },
-              { name: "Next.js", icon: "▲" },
-              { name: "Python", icon: "🐍" },
-              { name: "MySQL", icon: "🐬" },
-              { name: "TypeScript", icon: "📘" },
-              { name: "Tailwind", icon: "💨" },
-              { name: "Git", icon: "🔀" },
-              { name: "Docker", icon: "🐋" },
-              { name: "Figma", icon: "🎯" },
-              { name: "Upwork", icon: "💼" },
-            ].map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.1 }}
-                className="flex items-center gap-2 px-6 py-3 glass rounded-xl font-semibold text-gray-700 dark:text-gray-300 cursor-pointer"
-              >
-                <span className="text-xl">{tech.icon}</span>
-                <span>{tech.name}</span>
-              </motion.div>
-            ))}
+            {techStack.map((tech, index) => {
+              const IconComponent = TechIcons[tech.icon as keyof typeof TechIcons];
+              return (
+                <motion.div
+                  key={tech.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.1, y: -5 }}
+                  className="group flex flex-col items-center gap-3 px-6 py-4 glass rounded-xl cursor-pointer hover:shadow-lg smooth-transition"
+                >
+                  <div className="w-12 h-12 flex items-center justify-center">
+                    {IconComponent && <IconComponent className="w-full h-full" />}
+                  </div>
+                  <span className="font-semibold text-gray-700 dark:text-gray-300 text-sm">
+                    {tech.name}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

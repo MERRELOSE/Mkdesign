@@ -7,7 +7,7 @@ export default function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 rounded-full shadow-lg p-2 flex items-center gap-2">
+    <div className="fixed top-4 right-4 z-[100] bg-white dark:bg-gray-800 rounded-full shadow-lg p-2 flex items-center gap-2">
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}

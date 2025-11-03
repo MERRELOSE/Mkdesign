@@ -6,10 +6,12 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <ThemeToggle />
       <LanguageSwitcher />
       <Navbar />
       <Hero />
