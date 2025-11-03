@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { StatsIcons } from "./TechIcons";
 
 const roles = ["Full-Stack Developer", "Laravel Expert", "React Developer", "Problem Solver"];
 
@@ -100,14 +101,29 @@ export default function Hero() {
             className="flex flex-wrap justify-center gap-8 mb-12"
           >
             <div className="text-center">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
+                  <StatsIcons.Upwork className="w-10 h-10 text-green-600 dark:text-green-400" />
+                </div>
+              </div>
               <div className="text-3xl sm:text-4xl font-bold gradient-text">$2000+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Earned on Upwork</div>
             </div>
             <div className="text-center">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
+                  <StatsIcons.Clients className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+                </div>
+              </div>
               <div className="text-3xl sm:text-4xl font-bold gradient-text">3+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Enterprise Clients</div>
             </div>
             <div className="text-center">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
+                  <StatsIcons.Experience className="w-10 h-10 text-purple-600 dark:text-purple-400" />
+                </div>
+              </div>
               <div className="text-3xl sm:text-4xl font-bold gradient-text">5+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
             </div>
