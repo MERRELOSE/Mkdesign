@@ -56,36 +56,17 @@
         .active:after {
             width: 100%;
         }
-        .project-card {
-            transition: all 0.3s ease;
-            perspective: 1000px;
-        }
-        .project-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .project-card:hover .project-card-inner {
-            transform: rotateY(180deg);
-        }
-        .project-card-front, .project-card-back {
-            backface-visibility: hidden;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-        .project-card-back {
-            transform: rotateY(180deg);
-        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
     <!-- Language Switcher -->
-    <div class="fixed top-4 right-4 z-50">
-        <select id="language-switcher" class="px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="en">English</option>
-            <option value="fr" selected>Français</option>
-            <option value="tr">Türkçe</option>
-        </select>
+    <div class="fixed top-4 right-4 z-50 bg-white rounded-full shadow-lg p-2 flex items-center space-x-2">
+        <button id="lang-en" class="lang-btn w-10 h-10 rounded-full overflow-hidden border-2 border-blue-500 hover:scale-110 transition-transform" data-lang="en">
+            <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-full h-full object-cover">
+        </button>
+        <button id="lang-fr" class="lang-btn w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:scale-110 transition-transform" data-lang="fr">
+            <img src="https://flagcdn.com/w40/fr.png" alt="Français" class="w-full h-full object-cover">
+        </button>
     </div>
 
     <!-- Navigation -->
@@ -373,6 +354,33 @@
                         </div>
                         <span class="text-sm font-medium">MySQL</span>
                     </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <svg class="w-10 h-10" viewBox="0 0 102 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M65.4 13.3a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0zm9.5 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" fill="#14a800"/>
+                                <path d="M79.3 7.3h3.5v1.7c.7-1 2-2 4-2 3 0 4.6 1.8 4.6 5v8.4h-3.5v-7.8c0-1.6-.8-2.5-2.3-2.5-1.6 0-2.8 1-2.8 3v7.3h-3.5V7.3z" fill="#14a800"/>
+                                <path d="M29.8 13.5L23 2.8h-3.5v17.6h3.4V9.7l6.8 10.7h3.5V2.8h-3.4v10.7z" fill="#14a800"/>
+                                <path d="M48 2.8h-7.5v3h2v11.6h3.5V5.8h2V2.8z" fill="#14a800"/>
+                                <path d="M51 16.7c2.2 0 3.8-.8 4.8-2.2l-2.7-1.4c-.4.7-1 1-2 1-1.4 0-2.4-1-2.6-2.4h8c0-.3.1-.7.1-1 0-3.8-2.3-6.4-5.8-6.4-3.4 0-6 2.7-6 6.5s2.5 6.5 6.2 6.5zm-2.5-7.8c.3-1.3 1.2-2.1 2.4-2.1s2 .8 2.2 2H48.5z" fill="#14a800"/>
+                                <path d="M9.8 16.1c-1 0-1.6-.6-1.6-1.6V9.3H11V6.6H8.2V2.9H5.6c-.3 2-1 3.3-3.6 3.7v3h2v6.1c0 2.8 1.6 4.5 4.5 4.5 1 0 2-.3 2.8-.8l-1-2.4c-.5.3-1 .4-1.5.4z" fill="#14a800"/>
+                                <path d="M95.5 4.3c1.2 0 2.2-1 2.2-2.2C97.7 1 96.7 0 95.5 0c-1.2 0-2.2 1-2.2 2.2 0 1.2 1 2.1 2.2 2.1z" fill="#14a800"/>
+                                <path d="M94 7.3h3.5v13.1H94V7.3z" fill="#14a800"/>
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium">Upwork</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-html5 text-3xl text-orange-600"></i>
+                        </div>
+                        <span class="text-sm font-medium">HTML5</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mb-2">
+                            <i class="fab fa-css3-alt text-3xl text-blue-500"></i>
+                        </div>
+                        <span class="text-sm font-medium">CSS3</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -387,65 +395,116 @@
                 <p class="text-gray-600 mt-6 max-w-2xl mx-auto" data-i18n="projects.description">Here are some of my recent projects that showcase my skills and expertise.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card h-80 relative">
-                    <div class="project-card-inner h-full w-full">
-                        <div class="project-card-front absolute h-full w-full bg-white rounded-xl shadow-lg overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 1" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold mb-2" data-i18n="projects.ecommerce">E-commerce Platform</h3>
-                                <p class="text-gray-600" data-i18n="projects.ecommerceDescription">A modern e-commerce solution with seamless checkout experience.</p>
+                <!-- Project 1: E-commerce Platform -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="E-commerce Platform" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2" data-i18n="projects.ecommerce">E-commerce Platform</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="projects.ecommerceDescription">A modern e-commerce solution with seamless checkout experience.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-react text-blue-500 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">React</span>
+                            </div>
+                            <div class="flex items-center bg-green-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-node-js text-green-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">Node.js</span>
+                            </div>
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fas fa-database text-blue-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">MySQL</span>
+                            </div>
+                            <div class="flex items-center bg-orange-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-html5 text-orange-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">HTML5</span>
+                            </div>
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-css3-alt text-blue-500 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">CSS3</span>
                             </div>
                         </div>
-                        <div class="project-card-back absolute h-full w-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 flex flex-col justify-center items-center text-white">
-                            <h3 class="text-xl font-bold mb-4" data-i18n="projects.ecommerce">E-commerce Platform</h3>
-                            <p class="text-center mb-6" data-i18n="projects.ecommerceDetails">Built with React, Node.js, and MySQL. Features include product filtering, cart system, and secure payments.</p>
-                            <div class="flex space-x-4">
-                                <a href="#" class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition" data-i18n="projects.viewDemo">View Demo</a>
-                                <a href="#" class="px-4 py-2 border border-white text-white rounded-full font-medium hover:bg-white hover:text-blue-600 transition" data-i18n="projects.details">Details</a>
-                            </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition text-center" data-i18n="projects.viewDemo">View Demo</a>
+                            <a href="#" class="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:border-blue-500 hover:text-blue-500 transition" data-i18n="projects.details">Details</a>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Project 2 -->
-                <div class="project-card h-80 relative">
-                    <div class="project-card-inner h-full w-full">
-                        <div class="project-card-front absolute h-full w-full bg-white rounded-xl shadow-lg overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Project 2" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold mb-2" data-i18n="projects.travel">Travel App</h3>
-                                <p class="text-gray-600" data-i18n="projects.travelDescription">Mobile app for discovering and booking unique travel experiences.</p>
+
+                <!-- Project 2: Travel App -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Travel App" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2" data-i18n="projects.travel">Travel App</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="projects.travelDescription">Mobile app for discovering and booking unique travel experiences.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-react text-blue-500 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">React Native</span>
+                            </div>
+                            <div class="flex items-center bg-red-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-laravel text-red-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">Laravel</span>
+                            </div>
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fas fa-database text-blue-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">MySQL</span>
+                            </div>
+                            <div class="flex items-center bg-orange-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-html5 text-orange-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">HTML5</span>
+                            </div>
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-css3-alt text-blue-500 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">CSS3</span>
                             </div>
                         </div>
-                        <div class="project-card-back absolute h-full w-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 flex flex-col justify-center items-center text-white">
-                            <h3 class="text-xl font-bold mb-4" data-i18n="projects.travel">Travel App</h3>
-                            <p class="text-center mb-6" data-i18n="projects.travelDetails">React Native application with Laravel backend. Includes location services, booking system, and user reviews.</p>
-                            <div class="flex space-x-4">
-                                <a href="#" class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition" data-i18n="projects.viewDemo">View Demo</a>
-                                <a href="#" class="px-4 py-2 border border-white text-white rounded-full font-medium hover:bg-white hover:text-blue-600 transition" data-i18n="projects.details">Details</a>
-                            </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition text-center" data-i18n="projects.viewDemo">View Demo</a>
+                            <a href="#" class="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:border-blue-500 hover:text-blue-500 transition" data-i18n="projects.details">Details</a>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Project 3 -->
-                <div class="project-card h-80 relative">
-                    <div class="project-card-inner h-full w-full">
-                        <div class="project-card-front absolute h-full w-full bg-white rounded-xl shadow-lg overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 3" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold mb-2" data-i18n="projects.task">Task Management</h3>
-                                <p class="text-gray-600" data-i18n="projects.taskDescription">Collaborative task management system for teams.</p>
+
+                <!-- Project 3: Task Management -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Task Management" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2" data-i18n="projects.task">Task Management</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="projects.taskDescription">Collaborative task management system for teams.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <div class="flex items-center bg-green-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-vuejs text-green-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">Vue.js</span>
+                            </div>
+                            <div class="flex items-center bg-red-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-laravel text-red-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">Laravel</span>
+                            </div>
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fas fa-database text-blue-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">MySQL</span>
+                            </div>
+                            <div class="flex items-center bg-orange-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-html5 text-orange-600 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">HTML5</span>
+                            </div>
+                            <div class="flex items-center bg-blue-50 px-3 py-1 rounded-full">
+                                <i class="fab fa-css3-alt text-blue-500 mr-2"></i>
+                                <span class="text-xs font-medium text-gray-700">CSS3</span>
                             </div>
                         </div>
-                        <div class="project-card-back absolute h-full w-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 flex flex-col justify-center items-center text-white">
-                            <h3 class="text-xl font-bold mb-4" data-i18n="projects.task">Task Management</h3>
-                            <p class="text-center mb-6" data-i18n="projects.taskDetails">Vue.js application with real-time updates using Laravel and MySQL. Features include task assignment, progress tracking, and team collaboration.</p>
-                            <div class="flex space-x-4">
-                                <a href="#" class="px-4 py-2 bg-white text-blue-600 rounded-full font-medium hover:bg-gray-100 transition" data-i18n="projects.viewDemo">View Demo</a>
-                                <a href="#" class="px-4 py-2 border border-white text-white rounded-full font-medium hover:bg-white hover:text-blue-600 transition" data-i18n="projects.details">Details</a>
-                            </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition text-center" data-i18n="projects.viewDemo">View Demo</a>
+                            <a href="#" class="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:border-blue-500 hover:text-blue-500 transition" data-i18n="projects.details">Details</a>
                         </div>
                     </div>
                 </div>
@@ -655,7 +714,7 @@
     <script>
         // Initialize i18next
         i18next.init({
-            lng: 'fr', // Default language
+            lng: 'en', // Default language
             debug: false,
             resources: {
                 en: {
@@ -833,94 +892,6 @@
                             "copyright": "© 2025 MKDesign. Tous droits réservés."
                         }
                     }
-                },
-                tr: {
-                    translation: {
-                        "nav": {
-                            "home": "Ana Sayfa",
-                            "about": "Hakkımda",
-                            "skills": "Yetenekler",
-                            "projects": "Projeler",
-                            "contact": "İletişim"
-                        },
-                        "hero": {
-                            "greeting": "Merhaba, ben",
-                            "title": "Yaratıcı Tasarımcı & Geliştirici",
-                            "description": "İşletmelerin büyümesine ve dijital dünyada öne çıkmasına yardımcı olan güzel ve işlevsel dijital deneyimler yaratıyorum.",
-                            "viewWork": "Çalışmalarımı Gör",
-                            "contactMe": "Bana Ulaş"
-                        },
-                        "about": {
-                            "title": "Hakkımda",
-                            "who": "Ben kimim?",
-                            "description1": "5 yıldan fazla deneyime sahip, önemli dijital deneyimler yaratan tutkulu bir tasarımcı ve geliştiriciyim. Yolculuğum, sanat ve teknolojiye olan sevgimle başladı ve sonunda dijital tasarım ve geliştirme dünyasına ulaştı.",
-                            "description2": "Görsel olarak çarpıcı ve son derece işlevsel web siteleri ve uygulamalar oluşturma konusunda uzmanım. Estetik duyarlılığı teknik uzmanlıkla birleştiren yaklaşımım, yalnızca harika görünen değil, aynı zamanda olağanüstü performans gösteren çözümler sunar.",
-                            "uiux": "UI/UX Tasarımı",
-                            "uiuxDescription": "Kullanıcı deneyimini geliştiren sezgisel ve güzel kullanıcı arayüzleri oluşturma.",
-                            "webdev": "Web Geliştirme",
-                            "webdevDescription": "Modern teknolojilerle duyarlı, hızlı ve erişilebilir web siteleri oluşturma.",
-                            "mobile": "Mobil Tasarım",
-                            "mobileDescription": "Sorunsuz kullanıcı deneyimleri sunan mobil uygulamalar tasarlama.",
-                            "strategy": "Dijital Strateji",
-                            "strategyDescription": "İş hedeflerine ulaşmak için kapsamlı dijital stratejiler geliştirme.",
-                            "downloadCV": "CV İndir"
-                        },
-                        "skills": {
-                            "title": "Benim",
-                            "design": "Tasarım Yetenekleri",
-                            "development": "Geliştirme Yetenekleri",
-                            "tools": "Araçlar ve Teknolojiler",
-                            "uiux": "UI/UX Tasarımı",
-                            "graphic": "Grafik Tasarım",
-                            "brand": "Marka Kimliği",
-                            "illustration": "İllüstrasyon"
-                        },
-                        "projects": {
-                            "title": "Benim",
-                            "description": "Yeteneklerimi ve uzmanlığımı gösteren son projelerimden bazıları.",
-                            "ecommerce": "E-ticaret Platformu",
-                            "ecommerceDescription": "Sorunsuz ödeme deneyimi sunan modern bir e-ticaret çözümü.",
-                            "ecommerceDetails": "React, Node.js ve MySQL ile inşa edildi. Ürün filtreleme, sepet sistemi ve güvenli ödemeler içerir.",
-                            "travel": "Seyahat Uygulaması",
-                            "travelDescription": "Eşsiz seyahat deneyimleri keşfetmek ve rezervasyon yapmak için mobil uygulama.",
-                            "travelDetails": "Laravel backend ile React Native uygulaması. Konum servisleri, rezervasyon sistemi ve kullanıcı yorumlarını içerir.",
-                            "task": "Görev Yönetimi",
-                            "taskDescription": "Ekipler için işbirlikçi görev yönetim sistemi.",
-                            "taskDetails": "Laravel ve MySQL ile gerçek zamanlı güncellemeler sunan Vue.js uygulaması. Görev atama, ilerleme takibi ve ekip işbirliği özelliklerini içerir.",
-                            "viewDemo": "Demoyu Gör",
-                            "details": "Detaylar",
-                            "viewAll": "Tüm Projeleri Gör"
-                        },
-                        "testimonials": {
-                            "title": "Müşteri",
-                            "description": "Müşterilerimin çalışmalarımla ve profesyonelliğimle ilgili söyledikleri.",
-                            "client1": "MKDesign ile çalışmak tam bir zevkti. E-ticaret platformumuzu zamanından önce teslim ettiler ve bu, çevrimiçi satışlarımızı önemli ölçüde artırdı.",
-                            "client1Role": "CEO, TechSolutions",
-                            "client2": "MKDesign'in bizim için oluşturduğu seyahat uygulaması tüm beklentileri aştı. Detaylara verdikleri önem ve kullanıcı deneyimine odaklanmaları dikkat çekici.",
-                            "client2Role": "Kurucu, TravelBug",
-                            "client3": "MKDesign, iç görev yönetim sistemimizi dönüştürdü. Ekip, sezgisel tasarımları sayesinde artık her zamankinden daha üretken.",
-                            "client3Role": "Pazarlama Direktörü, TeamWorks"
-                        },
-                        "contact": {
-                            "title": "İletişime",
-                            "description": "Aklınızda bir proje mi var veya olası fırsatları tartışmak mı istiyorsunuz? Bana ulaşmaktan çekinmeyin!",
-                            "name": "Adınız",
-                            "email": "E-postanız",
-                            "subject": "Konu",
-                            "message": "Mesaj",
-                            "send": "Mesaj Gönder",
-                            "info": "İletişim Bilgileri",
-                            "location": "Konum",
-                            "phone": "Telefon",
-                            "follow": "Beni Takip Et"
-                        },
-                        "footer": {
-                            "description": "İlham veren ve performans gösteren dijital deneyimler yaratma.",
-                            "links": "Hızlı Bağlantılar",
-                            "contact": "İletişime Geç",
-                            "copyright": "© 2025 MKDesign. Tüm hakları saklıdır."
-                        }
-                    }
                 }
             }
         }, function(err, t) {
@@ -938,10 +909,20 @@
         }
 
         // Language switcher
-        document.getElementById('language-switcher').addEventListener('change', (e) => {
-            i18next.changeLanguage(e.target.value, () => {
-                updateContent();
-                document.documentElement.lang = e.target.value;
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = e.currentTarget.getAttribute('data-lang');
+                i18next.changeLanguage(lang, () => {
+                    updateContent();
+                    document.documentElement.lang = lang;
+                    // Update active state
+                    document.querySelectorAll('.lang-btn').forEach(b => {
+                        b.classList.remove('border-blue-500');
+                        b.classList.add('border-transparent');
+                    });
+                    e.currentTarget.classList.remove('border-transparent');
+                    e.currentTarget.classList.add('border-blue-500');
+                });
             });
         });
 
