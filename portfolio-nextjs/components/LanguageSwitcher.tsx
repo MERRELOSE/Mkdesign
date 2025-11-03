@@ -1,10 +1,22 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { motion } from "framer-motion";
 
 export default function LanguageSwitcher() {
+  const [mounted, setMounted] = useState(false);
   const { language, setLanguage } = useLanguage();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="fixed top-4 right-4 z-[100] bg-white dark:bg-gray-800 rounded-full shadow-lg p-2 w-[104px] h-[56px]" />
+    );
+  }
 
   return (
     <div className="fixed top-4 right-4 z-[100] bg-white dark:bg-gray-800 rounded-full shadow-lg p-2 flex items-center gap-2">

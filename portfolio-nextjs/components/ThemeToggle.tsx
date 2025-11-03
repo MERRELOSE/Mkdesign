@@ -1,11 +1,25 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useTheme } from "@/lib/ThemeContext";
 import { motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
+  const [mounted, setMounted] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  // Only render after component is mounted on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Avoid hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <div className="fixed top-4 left-4 z-[100] p-3 w-[44px] h-[44px] bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700" />
+    );
+  }
 
   return (
     <motion.button
