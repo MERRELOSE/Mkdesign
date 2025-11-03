@@ -15,6 +15,8 @@ const skillCategories = [
   {
     title: "Frontend Development",
     skills: [
+      { name: "HTML5", level: 98, color: "from-orange-500 to-red-500" },
+      { name: "CSS3", level: 95, color: "from-blue-500 to-cyan-500" },
       { name: "React", level: 90, color: "from-cyan-500 to-blue-500" },
       { name: "Next.js", level: 88, color: "from-gray-700 to-gray-900" },
       { name: "TypeScript", level: 85, color: "from-blue-600 to-blue-700" },
@@ -111,31 +113,35 @@ export default function Skills() {
           className="mt-16 text-center"
         >
           <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">
-            Technologies I Work With
+            Technologies & Platforms I Work With
           </h3>
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              "Laravel",
-              "React",
-              "Next.js",
-              "Python",
-              "MySQL",
-              "TypeScript",
-              "Tailwind",
-              "Git",
-              "Docker",
-              "Figma",
+              { name: "HTML5", icon: "🌐" },
+              { name: "CSS3", icon: "🎨" },
+              { name: "Laravel", icon: "🔴" },
+              { name: "React", icon: "⚛️" },
+              { name: "Next.js", icon: "▲" },
+              { name: "Python", icon: "🐍" },
+              { name: "MySQL", icon: "🐬" },
+              { name: "TypeScript", icon: "📘" },
+              { name: "Tailwind", icon: "💨" },
+              { name: "Git", icon: "🔀" },
+              { name: "Docker", icon: "🐋" },
+              { name: "Figma", icon: "🎯" },
+              { name: "Upwork", icon: "💼" },
             ].map((tech, index) => (
               <motion.div
-                key={tech}
+                key={tech.name}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.1 }}
-                className="px-6 py-3 glass rounded-xl font-semibold text-gray-700 dark:text-gray-300 cursor-pointer"
+                className="flex items-center gap-2 px-6 py-3 glass rounded-xl font-semibold text-gray-700 dark:text-gray-300 cursor-pointer"
               >
-                {tech}
+                <span className="text-xl">{tech.icon}</span>
+                <span>{tech.name}</span>
               </motion.div>
             ))}
           </div>
