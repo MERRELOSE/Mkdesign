@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { LanguageProvider } from "@/lib/i18n/LanguageContext";
-import { ThemeProvider } from "@/lib/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Kennedy MERRELOSE - Full-Stack Developer",
@@ -36,11 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
-        <ThemeProvider>
-          <LanguageProvider>
-            {children}
-          </LanguageProvider>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
