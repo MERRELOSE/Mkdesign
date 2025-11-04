@@ -1,18 +1,28 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTheme } from "@/lib/ThemeContext";
 import { motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
 
-  // Only render after component is mounted on client
   useEffect(() => {
     setMounted(true);
+    // Get initial theme
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    setCurrentTheme(initialTheme);
   }, []);
+
+  const toggleTheme = () => {
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setCurrentTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  };
 
   // Avoid hydration mismatch by not rendering until mounted
   if (!mounted) {
@@ -27,10 +37,10 @@ export default function ThemeToggle() {
       whileTap={{ scale: 0.95 }}
       onClick={toggleTheme}
       className="fixed top-4 left-4 z-[100] p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700"
-      title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      title={currentTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? (
+      {currentTheme === 'dark' ? (
         <Sun className="w-5 h-5 text-yellow-500" />
       ) : (
         <Moon className="w-5 h-5 text-gray-700" />
