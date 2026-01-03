@@ -90,7 +90,7 @@ export default function Hero() {
           >
             Building robust web applications with Laravel, React, and Next.js.
             <br />
-            5+ years of experience delivering high-quality solutions to clients worldwide.
+            4+ years of experience delivering high-quality solutions to clients worldwide.
           </motion.p>
 
           {/* Stats */}
@@ -106,7 +106,7 @@ export default function Hero() {
                   <StatsIcons.Upwork className="w-10 h-10 text-green-600 dark:text-green-400" />
                 </div>
               </div>
-              <div className="text-3xl sm:text-4xl font-bold gradient-text">$2000+</div>
+              <div className="text-3xl sm:text-4xl font-bold !text-white">$3000+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Earned on Upwork</div>
             </div>
             <div className="text-center">
@@ -115,7 +115,7 @@ export default function Hero() {
                   <StatsIcons.Clients className="w-10 h-10 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-              <div className="text-3xl sm:text-4xl font-bold gradient-text">3+</div>
+              <div className="text-3xl sm:text-4xl font-bold !text-white">10+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Enterprise Clients</div>
             </div>
             <div className="text-center">
@@ -124,7 +124,7 @@ export default function Hero() {
                   <StatsIcons.Experience className="w-10 h-10 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
-              <div className="text-3xl sm:text-4xl font-bold gradient-text">5+</div>
+              <div className="text-3xl sm:text-4xl font-bold !text-white">4+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
             </div>
           </motion.div>

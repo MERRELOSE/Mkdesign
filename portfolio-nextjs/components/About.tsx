@@ -58,13 +58,13 @@ export default function About() {
             </h3>
             <div className="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
               <p>
-                With over <strong className="text-gray-900 dark:text-white">5 years of experience</strong>, I specialize in building
+                With over <strong className="text-gray-900 dark:text-white">4 years of experience</strong>, I specialize in building
                 robust, scalable web applications that solve real business problems. My expertise spans across the entire
                 development stack, from database design to intuitive user interfaces.
               </p>
               <p>
-                I've successfully delivered projects for <strong className="text-gray-900 dark:text-white">3+ enterprise clients</strong> on
-                Upwork, earning over <strong className="text-gray-900 dark:text-white">$2000+</strong> through quality work and client satisfaction.
+                I've successfully delivered projects for <strong className="text-gray-900 dark:text-white">10+ enterprise clients</strong> on
+                Upwork, earning over <strong className="text-gray-900 dark:text-white">$3000+</strong> through quality work and client satisfaction.
                 My projects range from SaaS dashboards to tourism booking platforms, each built with attention to performance and user experience.
               </p>
               <p>

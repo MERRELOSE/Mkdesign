@@ -2,45 +2,28 @@
 
 import { motion } from "framer-motion";
 import { TechIcons } from "./TechIcons";
+import { CheckCircle2 } from "lucide-react";
 
 const skillCategories = [
   {
     title: "Backend Development",
-    skills: [
-      { name: "Laravel", level: 95, color: "from-red-500 to-orange-500" },
-      { name: "PHP", level: 90, color: "from-indigo-500 to-purple-500" },
-      { name: "Python", level: 85, color: "from-blue-500 to-cyan-500" },
-      { name: "NodeJS", level: 80, color: "from-green-500 to-emerald-500" },
-    ],
+    description: "Robust & Scalable server-side solutions",
+    skills: ["Laravel", "PHP", "Python", "NodeJS", "REST API", "Microservices"],
   },
   {
     title: "Frontend Development",
-    skills: [
-      { name: "HTML5", level: 98, color: "from-orange-500 to-red-500" },
-      { name: "CSS3", level: 95, color: "from-blue-500 to-cyan-500" },
-      { name: "React", level: 90, color: "from-cyan-500 to-blue-500" },
-      { name: "NextJS", level: 88, color: "from-gray-700 to-gray-900" },
-      { name: "TypeScript", level: 85, color: "from-blue-600 to-blue-700" },
-      { name: "Tailwind", level: 95, color: "from-teal-500 to-cyan-500" },
-    ],
+    description: "Responsive & Interactive user interfaces",
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "Framer Motion"],
   },
   {
-    title: "Database & Tools",
-    skills: [
-      { name: "MySQL", level: 90, color: "from-blue-500 to-blue-600" },
-      { name: "PostgreSQL", level: 80, color: "from-blue-400 to-indigo-500" },
-      { name: "Git", level: 92, color: "from-orange-500 to-red-500" },
-      { name: "Docker", level: 75, color: "from-blue-400 to-blue-600" },
-    ],
+    title: "Database & DevOps",
+    description: "Data management & Deployment",
+    skills: ["MySQL", "PostgreSQL", "Docker", "Git", "CI/CD", "AWS Basics"],
   },
   {
-    title: "Additional Skills",
-    skills: [
-      { name: "REST API", level: 93, color: "from-green-500 to-teal-500" },
-      { name: "UI/UX Design", level: 85, color: "from-pink-500 to-purple-500" },
-      { name: "Responsive Design", level: 95, color: "from-purple-500 to-indigo-500" },
-      { name: "Performance Optimization", level: 88, color: "from-yellow-500 to-orange-500" },
-    ],
+    title: "Design & Tools",
+    description: "Workflow & Creative tools",
+    skills: ["Figma", "UI/UX Principles", "Responsive Design", "Agile/Scrum", "VS Code"],
   },
 ];
 
@@ -60,10 +43,28 @@ const techStack = [
   { name: "Upwork", icon: "Upwork" },
 ];
 
+// Animation simple pour le conteneur des tags
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1 // Effet cascade
+    }
+  }
+};
+
+// Animation pour chaque petit tag
+const item = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 }
+};
+
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-800 dark:via-blue-900 dark:to-purple-900">
+    <section id="skills" className="py-24 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -71,57 +72,60 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            Technical <span className="gradient-text">Skills</span>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+            Technical <span className="text-blue-600 dark:text-blue-400">Expertise</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Technologies and tools I use to bring ideas to life
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            A comprehensive overview of my technical foundation and the tools I use to build digital products.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
+        {/* Skills Grid (Animé) */}
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+          {skillCategories.map((category, index) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               viewport={{ once: true }}
-              className="glass rounded-2xl p-8"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300"
             >
-              <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                {category.title}
-              </h3>
-              <div className="space-y-6">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between mb-2">
-                      <span className="font-semibold text-gray-800 dark:text-gray-200">
-                        {skill.name}
-                      </span>
-                      <span className="font-semibold text-gray-600 dark:text-gray-400">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.1 }}
-                        viewport={{ once: true }}
-                        className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative overflow-hidden`}
-                      >
-                        <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
-                      </motion.div>
-                    </div>
-                  </div>
-                ))}
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                  {category.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {category.description}
+                </p>
               </div>
+
+              {/* Les tags s'animent ici */}
+              <motion.div 
+                className="flex flex-wrap gap-2"
+                variants={container}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
+                {category.skills.map((skill) => (
+                  <motion.span
+                    key={skill}
+                    variants={item}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="cursor-default inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-100 dark:border-blue-800 transition-colors hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    {skill}
+                  </motion.span>
+                ))}
+              </motion.div>
             </motion.div>
           ))}
         </div>
 
-        {/* Tech Stack Logos */}
+        {/* Tech Stack Logos (CODE ORIGINAL RESTAURÉ - SANS MODIFICATION D'ANIMATION) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
