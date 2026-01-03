@@ -33,14 +33,11 @@ const techStack = [
   { name: "Laravel", icon: "Laravel" },
   { name: "React", icon: "React" },
   { name: "Next.js", icon: "NextJS" },
+  { name: "Tailwind", icon: "Tailwind" },
   { name: "Python", icon: "Python" },
   { name: "MySQL", icon: "MySQL" },
-  { name: "TypeScript", icon: "TypeScript" },
-  { name: "Tailwind", icon: "Tailwind" },
   { name: "Git", icon: "Git" },
   { name: "Docker", icon: "Docker" },
-  { name: "Figma", icon: "Figma" },
-  { name: "Upwork", icon: "Upwork" },
 ];
 
 // Animation simple pour le conteneur des tags
