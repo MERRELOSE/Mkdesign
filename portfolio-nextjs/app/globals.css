@@ -5,21 +5,19 @@
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
-  --primary: #3b82f6;
-  --primary-dark: #2563eb;
-  --secondary: #8b5cf6;
-  --accent: #06b6d4;
+  --primary: #10b981;
+  --primary-dark: #059669;
+  --accent: #14b8a6;
+  --accent-light: #2dd4bf;
   --muted: #f1f5f9;
   --border: #e2e8f0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ffffff;
-    --muted: #1e293b;
-    --border: #334155;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f8fafc;
+  --muted: #1e293b;
+  --border: #334155;
 }
 
 * {
@@ -60,7 +58,7 @@ body {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -71,8 +69,8 @@ body {
   background: linear-gradient(
     135deg,
     var(--primary),
-    var(--secondary),
     var(--accent),
+    var(--accent-light),
     var(--primary)
   );
   background-size: 400% 400%;
@@ -87,11 +85,9 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass {
-    background: rgba(10, 10, 10, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
+.dark .glass {
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Magnetic button effect */

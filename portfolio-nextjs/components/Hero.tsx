@@ -22,12 +22,12 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-blue-50 to-purple-50 dark:from-gray-900 dark:via-blue-950 dark:to-purple-950">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-primary-50/40 to-accent-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
-        <div className="absolute bottom-20 right-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: "2s" }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: "4s" }}></div>
+        <div className="absolute top-20 left-20 w-72 h-72 bg-primary-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
+        <div className="absolute bottom-20 right-20 w-72 h-72 bg-accent-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: "2s" }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: "4s" }}></div>
       </div>
 
       {/* Content */}
@@ -45,8 +45,8 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
           >
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-500"></span>
             </span>
             <span className="text-sm font-medium">{t.hero.available}</span>
           </motion.div>
@@ -102,29 +102,29 @@ export default function Hero() {
           >
             <div className="text-center">
               <div className="flex justify-center mb-3">
-                <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
-                  <StatsIcons.Upwork className="w-10 h-10 text-green-600 dark:text-green-400" />
+                <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-full">
+                  <StatsIcons.Upwork className="w-10 h-10 text-primary-600 dark:text-primary-400" />
                 </div>
               </div>
-              <div className="text-3xl sm:text-4xl font-bold !text-white">$3000+</div>
+              <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">$3000+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t.hero.earnedUpwork}</div>
             </div>
             <div className="text-center">
               <div className="flex justify-center mb-3">
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
-                  <StatsIcons.Clients className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+                <div className="p-3 bg-accent-50 dark:bg-accent-900/20 rounded-full">
+                  <StatsIcons.Clients className="w-10 h-10 text-accent-600 dark:text-accent-400" />
                 </div>
               </div>
-              <div className="text-3xl sm:text-4xl font-bold !text-white">10+</div>
+              <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">10+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t.hero.enterpriseClients}</div>
             </div>
             <div className="text-center">
               <div className="flex justify-center mb-3">
-                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
-                  <StatsIcons.Experience className="w-10 h-10 text-purple-600 dark:text-purple-400" />
+                <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-full">
+                  <StatsIcons.Experience className="w-10 h-10 text-primary-600 dark:text-primary-400" />
                 </div>
               </div>
-              <div className="text-3xl sm:text-4xl font-bold !text-white">4+</div>
+              <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">4+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t.hero.yearsExperience}</div>
             </div>
           </motion.div>
@@ -138,14 +138,14 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="magnetic-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-2xl hover:shadow-3xl flex items-center gap-2"
+              className="magnetic-btn bg-gradient-to-r from-primary-500 to-accent-500 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-2xl hover:shadow-primary-500/25 flex items-center gap-2"
             >
               {t.hero.viewWork}
               <ExternalLink size={20} />
             </a>
             <a
               href="#contact"
-              className="magnetic-btn glass px-8 py-4 rounded-full text-lg font-semibold border-2 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-all"
+              className="magnetic-btn glass px-8 py-4 rounded-full text-lg font-semibold border-2 border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 hover:text-white transition-all"
             >
               {t.hero.contactMe}
             </a>
@@ -162,7 +162,7 @@ export default function Hero() {
               href="https://github.com/MERRELOSE"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
               aria-label="GitHub"
             >
               <Github size={24} />
@@ -171,14 +171,14 @@ export default function Hero() {
               href="https://www.linkedin.com/in/kennedy-merrelose-165092283"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin size={24} />
             </a>
             <a
               href="mailto:kennedymerrelose@gmail.com"
-              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
               aria-label="Email"
             >
               <Mail size={24} />

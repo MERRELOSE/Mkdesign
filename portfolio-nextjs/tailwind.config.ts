@@ -1,6 +1,14 @@
 import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  PALETTE — Change these 2 lines to swap all colors  ║
+// ╚══════════════════════════════════════════════════════╝
+const primary = colors.emerald;   // Option A: emerald  |  Option B: amber
+const accent  = colors.teal;      // Option A: teal     |  Option B: orange
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,6 +19,8 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary,
+        accent,
       },
       fontFamily: {
         sans: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "sans-serif"],

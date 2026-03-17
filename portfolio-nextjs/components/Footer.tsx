@@ -21,7 +21,7 @@ export default function Footer() {
                 href="https://github.com/MERRELOSE"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition"
                 aria-label="GitHub"
               >
                 <Github size={20} />
@@ -30,7 +30,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/kennedy-merrelose-165092283"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
@@ -39,14 +39,14 @@ export default function Footer() {
                 href="https://x.com/MerreloseK"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition"
                 aria-label="X (Twitter)"
               >
                 <Twitter size={20} />
               </a>
               <a
                 href="mailto:kennedymerrelose@gmail.com"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition"
                 aria-label="Email"
               >
                 <Mail size={20} />
@@ -59,22 +59,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.footer.quickLinks}</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#about" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition">
+                <a href="#about" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition">
                   {t.nav.about}
                 </a>
               </li>
               <li>
-                <a href="#skills" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition">
+                <a href="#skills" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition">
                   {t.nav.skills}
                 </a>
               </li>
               <li>
-                <a href="#projects" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition">
+                <a href="#projects" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition">
                   {t.nav.projects}
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 smooth-transition">
+                <a href="#contact" className="text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 smooth-transition">
                   {t.nav.contact}
                 </a>
               </li>
@@ -86,15 +86,15 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.footer.getInTouch}</h3>
             <ul className="space-y-2 text-gray-600 dark:text-gray-400">
               <li>
-                <a href="mailto:kennedymerrelose@gmail.com" className="hover:text-blue-600 dark:hover:text-blue-400 smooth-transition">
+                <a href="mailto:kennedymerrelose@gmail.com" className="hover:text-primary-500 dark:hover:text-primary-400 smooth-transition">
                   kennedymerrelose@gmail.com
                 </a>
               </li>
               <li>Cotonou, Benin</li>
               <li className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
                 </span>
                 {t.footer.available}
               </li>

@@ -67,7 +67,7 @@ export default function Skills() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            {t.skills.title} <span className="text-blue-600 dark:text-blue-400">{t.skills.expertise}</span>
+            {t.skills.title} <span className="text-primary-600 dark:text-primary-400">{t.skills.expertise}</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t.skills.subtitle}
@@ -89,7 +89,7 @@ export default function Skills() {
               >
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                    <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
                     {categoryTranslation.title}
                   </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -109,9 +109,9 @@ export default function Skills() {
                       key={skill}
                       variants={item}
                       whileHover={{ scale: 1.05, y: -2 }}
-                      className="cursor-default inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-100 dark:border-blue-800 transition-colors hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                      className="cursor-default inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300 border border-primary-100 dark:border-primary-800 transition-colors hover:bg-primary-100 dark:hover:bg-primary-900/50"
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
                       {skill}
                     </motion.span>
                   ))}

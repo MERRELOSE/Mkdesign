@@ -101,7 +101,6 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* Uniform Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
@@ -112,7 +111,6 @@ export default function Projects() {
               viewport={{ once: true }}
               className="group relative glass rounded-2xl overflow-hidden hover:shadow-2xl smooth-transition transform hover:-translate-y-2"
             >
-              {/* Project Image */}
               <div className="relative h-56 overflow-hidden">
                 <Image
                   src={project.image}
@@ -125,16 +123,14 @@ export default function Projects() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
 
-              {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 smooth-transition">
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 smooth-transition">
                   {project.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
                   {project.description}
                 </p>
 
-                {/* Technology Icons */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag) => {
                     const IconComponent = getTechIcon(tag);
@@ -152,18 +148,17 @@ export default function Projects() {
                   })}
                 </div>
 
-                {/* Links */}
                 <div className="flex gap-3">
                   <a
                     href={project.live}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg smooth-transition"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-sm font-medium rounded-lg hover:shadow-lg smooth-transition"
                   >
                     <ExternalLink size={16} />
                     {t.projects.viewDemo}
                   </a>
                   <a
                     href={project.github}
-                    className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:border-blue-500 hover:text-blue-500 smooth-transition"
+                    className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:border-primary-500 hover:text-primary-500 smooth-transition"
                     aria-label={`GitHub - ${project.title}`}
                   >
                     <Github size={16} />
@@ -174,7 +169,6 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -186,7 +180,7 @@ export default function Projects() {
             href="https://github.com/MERRELOSE"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 magnetic-btn glass px-8 py-4 rounded-full font-semibold border-2 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white smooth-transition"
+            className="inline-flex items-center gap-2 magnetic-btn glass px-8 py-4 rounded-full font-semibold border-2 border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-500 hover:text-white smooth-transition"
           >
             <Github size={20} />
             {t.projects.viewMore}
