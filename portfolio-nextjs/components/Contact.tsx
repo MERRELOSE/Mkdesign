@@ -2,9 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Mail, MapPin, Send } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,18 +16,30 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus("idle");
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+        formRef.current!,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ""
+      );
+
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
       setTimeout(() => setSubmitStatus("idle"), 5000);
-    }, 2000);
+    } catch {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,10 +57,10 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            Get In <span className="gradient-text">Touch</span>
+            {t.contact.title} <span className="gradient-text">{t.contact.touch}</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Have a project in mind? Let's work together to bring your ideas to life
+            {t.contact.subtitle}
           </p>
         </motion.div>
 
@@ -60,12 +75,10 @@ export default function Contact() {
           >
             <div>
               <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-                Let's discuss your project
+                {t.contact.heading}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                I'm currently available for freelance work and open to discussing new opportunities.
-                Whether you need a full-stack application, API development, or technical consultation,
-                I'd love to hear from you.
+                {t.contact.description}
               </p>
             </div>
 
@@ -75,7 +88,7 @@ export default function Contact() {
                   <Mail className="text-white" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Email</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{t.contact.email}</h4>
                   <a
                     href="mailto:kennedymerrelose@gmail.com"
                     className="text-blue-600 dark:text-blue-400 hover:underline"
@@ -90,7 +103,7 @@ export default function Contact() {
                   <MapPin className="text-white" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Location</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{t.contact.location}</h4>
                   <p className="text-gray-600 dark:text-gray-400">Cotonou, Benin</p>
                 </div>
               </div>
@@ -103,11 +116,10 @@ export default function Contact() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                 </span>
-                <span className="font-semibold text-gray-900 dark:text-white">Available for Freelance</span>
+                <span className="font-semibold text-gray-900 dark:text-white">{t.contact.availableTitle}</span>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Currently accepting new projects on Upwork and direct collaborations.
-                Typical response time: within 24 hours.
+                {t.contact.availableDescription}
               </p>
             </div>
           </motion.div>
@@ -119,10 +131,10 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  Your Name
+                  {t.contact.nameLabel}
                 </label>
                 <input
                   type="text"
@@ -132,13 +144,13 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:border-blue-600 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-600/20 outline-none smooth-transition"
-                  placeholder="John Doe"
+                  placeholder={t.contact.namePlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  Your Email
+                  {t.contact.emailLabel}
                 </label>
                 <input
                   type="email"
@@ -148,13 +160,13 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:border-blue-600 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-600/20 outline-none smooth-transition"
-                  placeholder="john@example.com"
+                  placeholder={t.contact.emailPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  Subject
+                  {t.contact.subjectLabel}
                 </label>
                 <input
                   type="text"
@@ -164,13 +176,13 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:border-blue-600 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-600/20 outline-none smooth-transition"
-                  placeholder="Project Inquiry"
+                  placeholder={t.contact.subjectPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  Message
+                  {t.contact.messageLabel}
                 </label>
                 <textarea
                   id="message"
@@ -180,7 +192,7 @@ export default function Contact() {
                   required
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:border-blue-600 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-600/20 outline-none smooth-transition resize-none"
-                  placeholder="Tell me about your project..."
+                  placeholder={t.contact.messagePlaceholder}
                 />
               </div>
 
@@ -192,19 +204,25 @@ export default function Contact() {
                 {isSubmitting ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Sending...
+                    {t.contact.sending}
                   </>
                 ) : (
                   <>
                     <Send size={20} />
-                    Send Message
+                    {t.contact.send}
                   </>
                 )}
               </button>
 
               {submitStatus === "success" && (
                 <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 text-center">
-                  Thank you! Your message has been sent successfully.
+                  {t.contact.success}
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-center">
+                  {t.contact.error}
                 </div>
               )}
             </form>

@@ -3,17 +3,19 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const navigation = [
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navigation = [
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.skills, href: "#skills" },
+    { name: t.nav.projects, href: "#projects" },
+    { name: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +57,7 @@ export default function Navbar() {
             <div className="ml-10 flex items-baseline space-x-8">
               {navigation.map((item) => (
                 <button
-                  key={item.name}
+                  key={item.href}
                   onClick={() => scrollToSection(item.href)}
                   className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors smooth-transition"
                 >
@@ -66,7 +68,7 @@ export default function Navbar() {
                 href="#contact"
                 className="magnetic-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg hover:shadow-xl"
               >
-                Hire Me
+                {t.nav.hireMe}
               </a>
             </div>
           </div>
@@ -76,6 +78,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -89,7 +92,7 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navigation.map((item) => (
               <button
-                key={item.name}
+                key={item.href}
                 onClick={() => scrollToSection(item.href)}
                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 block px-3 py-2 text-base font-medium w-full text-left transition-colors"
               >
@@ -100,7 +103,7 @@ export default function Navbar() {
               onClick={() => scrollToSection("#contact")}
               className="w-full text-left bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-2 rounded-lg text-base font-medium mt-4"
             >
-              Hire Me
+              {t.nav.hireMe}
             </button>
           </div>
         </div>

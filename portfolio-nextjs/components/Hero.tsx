@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { StatsIcons } from "./TechIcons";
-
-const roles = ["Full-Stack Developer", "Laravel Expert", "React Developer", "Problem Solver"];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentRole((prev) => (prev + 1) % roles.length);
+      setCurrentRole((prev) => (prev + 1) % t.hero.roles.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [t.hero.roles.length]);
 
   const scrollToAbout = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -48,7 +48,7 @@ export default function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            <span className="text-sm font-medium">Available for Freelance</span>
+            <span className="text-sm font-medium">{t.hero.available}</span>
           </motion.div>
 
           {/* Name */}
@@ -58,7 +58,7 @@ export default function Hero() {
             transition={{ delay: 0.3 }}
             className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6"
           >
-            Hi, I'm{" "}
+            {t.hero.greeting}{" "}
             <span className="gradient-text">Kennedy MERRELOSE</span>
           </motion.h1>
 
@@ -70,14 +70,14 @@ export default function Hero() {
             className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 h-12 sm:h-14"
           >
             <motion.span
-              key={currentRole}
+              key={`${currentRole}-${t.hero.roles[currentRole]}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
               className="inline-block text-gray-700 dark:text-gray-300"
             >
-              {roles[currentRole]}
+              {t.hero.roles[currentRole]}
             </motion.span>
           </motion.div>
 
@@ -88,9 +88,9 @@ export default function Hero() {
             transition={{ delay: 0.5 }}
             className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12"
           >
-            Building robust web applications with Laravel, React, and Next.js.
+            {t.hero.description}
             <br />
-            4+ years of experience delivering high-quality solutions to clients worldwide.
+            {t.hero.descriptionLine2}
           </motion.p>
 
           {/* Stats */}
@@ -107,7 +107,7 @@ export default function Hero() {
                 </div>
               </div>
               <div className="text-3xl sm:text-4xl font-bold !text-white">$3000+</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Earned on Upwork</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t.hero.earnedUpwork}</div>
             </div>
             <div className="text-center">
               <div className="flex justify-center mb-3">
@@ -116,7 +116,7 @@ export default function Hero() {
                 </div>
               </div>
               <div className="text-3xl sm:text-4xl font-bold !text-white">10+</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Enterprise Clients</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t.hero.enterpriseClients}</div>
             </div>
             <div className="text-center">
               <div className="flex justify-center mb-3">
@@ -125,7 +125,7 @@ export default function Hero() {
                 </div>
               </div>
               <div className="text-3xl sm:text-4xl font-bold !text-white">4+</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t.hero.yearsExperience}</div>
             </div>
           </motion.div>
 
@@ -140,14 +140,14 @@ export default function Hero() {
               href="#projects"
               className="magnetic-btn bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-2xl hover:shadow-3xl flex items-center gap-2"
             >
-              View My Work
+              {t.hero.viewWork}
               <ExternalLink size={20} />
             </a>
             <a
               href="#contact"
               className="magnetic-btn glass px-8 py-4 rounded-full text-lg font-semibold border-2 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-all"
             >
-              Get In Touch
+              {t.hero.contactMe}
             </a>
           </motion.div>
 
@@ -159,24 +159,27 @@ export default function Hero() {
             className="flex justify-center gap-6"
           >
             <a
-              href="https://github.com"
+              href="https://github.com/MERRELOSE"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              aria-label="GitHub"
             >
               <Github size={24} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/kennedy-merrelose-165092283"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              aria-label="LinkedIn"
             >
               <Linkedin size={24} />
             </a>
             <a
               href="mailto:kennedymerrelose@gmail.com"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              aria-label="Email"
             >
               <Mail size={24} />
             </a>
@@ -190,6 +193,7 @@ export default function Hero() {
           transition={{ delay: 1, repeat: Infinity, duration: 1.5 }}
           onClick={scrollToAbout}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600 dark:text-gray-400"
+          aria-label="Scroll down"
         >
           <ArrowDown size={32} className="animate-bounce" />
         </motion.button>

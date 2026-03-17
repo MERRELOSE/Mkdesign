@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { TechIcons } from "./TechIcons";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import Image from "next/image";
 
-// Type pour les clés de TechIcons
 type TechKey = keyof typeof TechIcons;
 
-// Map des couleurs pour chaque technologie
 const techColors: Record<string, string> = {
   "Laravel": "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
   "React": "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
@@ -76,6 +76,8 @@ const projects = [
 ];
 
 export default function Projects() {
+  const { t } = useLanguage();
+
   const getTechIcon = (techName: string) => {
     const IconComponent = TechIcons[techName as TechKey];
     return IconComponent;
@@ -92,10 +94,10 @@ export default function Projects() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            Featured <span className="gradient-text">Projects</span>
+            {t.projects.title} <span className="gradient-text">{t.projects.projects}</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            A selection of projects I've built for clients and personal learning
+            {t.projects.subtitle}
           </p>
         </motion.div>
 
@@ -112,10 +114,13 @@ export default function Projects() {
             >
               {/* Project Image */}
               <div className="relative h-56 overflow-hidden">
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 smooth-transition"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-110 smooth-transition"
+                  unoptimized
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
@@ -154,11 +159,12 @@ export default function Projects() {
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:shadow-lg smooth-transition"
                   >
                     <ExternalLink size={16} />
-                    View Demo
+                    {t.projects.viewDemo}
                   </a>
                   <a
                     href={project.github}
                     className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:border-blue-500 hover:text-blue-500 smooth-transition"
+                    aria-label={`GitHub - ${project.title}`}
                   >
                     <Github size={16} />
                   </a>
@@ -177,13 +183,13 @@ export default function Projects() {
           className="text-center mt-12"
         >
           <a
-            href="https://github.com"
+            href="https://github.com/MERRELOSE"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 magnetic-btn glass px-8 py-4 rounded-full font-semibold border-2 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white smooth-transition"
           >
             <Github size={20} />
-            View More on GitHub
+            {t.projects.viewMore}
           </a>
         </motion.div>
       </div>

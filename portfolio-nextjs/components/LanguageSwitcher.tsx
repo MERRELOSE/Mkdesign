@@ -2,37 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
-type Language = 'en' | 'fr';
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import type { Language } from "@/lib/i18n/translations";
+import Image from "next/image";
 
 export default function LanguageSwitcher() {
   const [mounted, setMounted] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
+  const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
     setMounted(true);
-    // Get saved language from localStorage
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'fr')) {
-      setCurrentLanguage(savedLanguage);
-      // Update i18next if available
-      if (typeof window !== 'undefined' && (window as any).i18next) {
-        (window as any).i18next.changeLanguage(savedLanguage);
-      }
-    }
   }, []);
-
-  const handleLanguageChange = (lang: Language) => {
-    setCurrentLanguage(lang);
-    localStorage.setItem('language', lang);
-
-    // Update i18next if available
-    if (typeof window !== 'undefined' && (window as any).i18next) {
-      (window as any).i18next.changeLanguage(lang);
-      // Trigger a custom event to notify other components
-      window.dispatchEvent(new CustomEvent('languageChange', { detail: lang }));
-    }
-  };
 
   if (!mounted) {
     return (
@@ -45,31 +25,39 @@ export default function LanguageSwitcher() {
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => handleLanguageChange('en')}
+        onClick={() => setLanguage('en')}
         className={`w-10 h-10 rounded-full overflow-hidden border-2 transition-all ${
-          currentLanguage === 'en' ? 'border-blue-500 ring-2 ring-blue-300' : 'border-transparent hover:border-gray-300'
+          language === 'en' ? 'border-blue-500 ring-2 ring-blue-300' : 'border-transparent hover:border-gray-300'
         }`}
         title="English"
+        aria-label="Switch to English"
       >
-        <img
+        <Image
           src="https://flagcdn.com/w40/gb.png"
           alt="English"
+          width={40}
+          height={30}
           className="w-full h-full object-cover"
+          unoptimized
         />
       </motion.button>
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => handleLanguageChange('fr')}
+        onClick={() => setLanguage('fr')}
         className={`w-10 h-10 rounded-full overflow-hidden border-2 transition-all ${
-          currentLanguage === 'fr' ? 'border-blue-500 ring-2 ring-blue-300' : 'border-transparent hover:border-gray-300'
+          language === 'fr' ? 'border-blue-500 ring-2 ring-blue-300' : 'border-transparent hover:border-gray-300'
         }`}
         title="Français"
+        aria-label="Passer en Français"
       >
-        <img
+        <Image
           src="https://flagcdn.com/w40/fr.png"
           alt="Français"
+          width={40}
+          height={30}
           className="w-full h-full object-cover"
+          unoptimized
         />
       </motion.button>
     </div>
