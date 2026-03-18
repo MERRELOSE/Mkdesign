@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Code2, Database, Palette, Rocket } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import Image from "next/image";
 
 export default function About() {
   const { t } = useLanguage();
@@ -34,30 +33,13 @@ export default function About() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Left: Photo + Text */}
+          {/* Left: Text content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            {/* Profile Photo */}
-            <div className="flex justify-center lg:justify-start mb-8">
-              <div className="relative">
-                <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden ring-4 ring-primary-500/20 shadow-2xl">
-                  <Image
-                    src="/profile.jpg"
-                    alt="Kennedy MERRELOSE"
-                    width={192}
-                    height={192}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
-                </div>
-                <div className="absolute -inset-3 bg-gradient-to-br from-primary-500/20 to-accent-500/20 rounded-2xl -z-10 blur-lg"></div>
-              </div>
-            </div>
-
             <h3 className="text-3xl font-bold mb-6">
               {t.about.heading}
             </h3>
