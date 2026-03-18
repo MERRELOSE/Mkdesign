@@ -84,16 +84,16 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-24 bg-white dark:bg-gray-900">
+    <section id="projects" className="py-14 sm:py-24 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             {t.projects.title} <span className="gradient-text">{t.projects.projects}</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -101,7 +101,7 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -111,7 +111,7 @@ export default function Projects() {
               viewport={{ once: true }}
               className="group relative glass rounded-2xl overflow-hidden hover:shadow-2xl smooth-transition transform hover:-translate-y-2"
             >
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-44 sm:h-56 overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -123,7 +123,7 @@ export default function Projects() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 smooth-transition">
                   {project.title}
                 </h3>
@@ -174,7 +174,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-12"
         >
           <a
             href="https://github.com/MERRELOSE"

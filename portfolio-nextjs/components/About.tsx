@@ -15,14 +15,14 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-white dark:bg-gray-900">
+    <section id="about" className="py-14 sm:py-24 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
             {t.about.title} <span className="gradient-text">{t.about.me}</span>
@@ -32,7 +32,7 @@ export default function About() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-0 sm:mb-10">
           {/* Left: Text content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -40,7 +40,7 @@ export default function About() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-3xl font-bold mb-6">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
               {t.about.heading}
             </h3>
             <div className="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -69,7 +69,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="grid sm:grid-cols-2 gap-6"
+            className="grid grid-cols-2 gap-4 sm:gap-6"
           >
             {services.map((service, index) => (
               <motion.div

@@ -56,7 +56,7 @@ export default function Skills() {
   const { t } = useLanguage();
 
   return (
-    <section id="skills" className="py-24 bg-gray-50 dark:bg-gray-900">
+    <section id="skills" className="py-14 sm:py-24 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -64,9 +64,9 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">
             {t.skills.title} <span className="text-primary-600 dark:text-primary-400">{t.skills.expertise}</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -75,7 +75,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           {skillCategories.map((category, index) => {
             const categoryTranslation = t.skills.categories[category.key];
             return (
@@ -85,7 +85,7 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-5 sm:p-8 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300"
               >
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
@@ -132,7 +132,7 @@ export default function Skills() {
           <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">
             {t.skills.techPlatforms}
           </h3>
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
             {techStack.map((tech, index) => {
               const IconComponent = TechIcons[tech.icon as keyof typeof TechIcons];
               return (
@@ -143,9 +143,9 @@ export default function Skills() {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.1, y: -5 }}
-                  className="group flex flex-col items-center gap-3 px-6 py-4 glass rounded-xl cursor-pointer hover:shadow-lg smooth-transition"
+                  className="group flex flex-col items-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-6 sm:py-4 glass rounded-xl cursor-pointer hover:shadow-lg smooth-transition"
                 >
-                  <div className="w-12 h-12 flex items-center justify-center">
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center">
                     {IconComponent && <IconComponent className="w-full h-full" />}
                   </div>
                   <span className="font-semibold text-gray-700 dark:text-gray-300 text-sm">

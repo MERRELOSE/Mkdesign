@@ -32,8 +32,8 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-32 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32 w-full">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left: Text content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -162,8 +162,8 @@ export default function Hero() {
             className="flex flex-col items-center order-1 lg:order-2"
           >
             {/* Profile Photo */}
-            <div className="relative mb-10">
-              <div className="w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden ring-4 ring-primary-500/30 shadow-2xl shadow-primary-500/10">
+            <div className="relative mb-6 sm:mb-10">
+              <div className="w-44 h-44 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden ring-4 ring-primary-500/30 shadow-2xl shadow-primary-500/10">
                 <Image
                   src="/profile.jpg"
                   alt="Kennedy MERRELOSE"
@@ -180,7 +180,7 @@ export default function Hero() {
             </div>
 
             {/* Stats */}
-            <div className="flex gap-6 sm:gap-10">
+            <div className="flex gap-4 sm:gap-8 lg:gap-10">
               <div className="text-center">
                 <div className="flex justify-center mb-2">
                   <div className="p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-full">

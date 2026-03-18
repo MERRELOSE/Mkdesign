@@ -47,16 +47,16 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-br from-gray-50 via-primary-50/50 to-accent-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section id="contact" className="py-14 sm:py-24 bg-gradient-to-br from-gray-50 via-primary-50/50 to-accent-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             {t.contact.title} <span className="gradient-text">{t.contact.touch}</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -64,14 +64,14 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8"
           >
             <div>
               <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
@@ -131,7 +131,7 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <form ref={formRef} onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="glass rounded-2xl p-4 sm:p-8 space-y-4 sm:space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   {t.contact.nameLabel}
