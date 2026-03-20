@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mkdesign-phi.vercel.app'),
@@ -56,7 +58,9 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-950">
         <Providers>
+          <Navbar />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>
