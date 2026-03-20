@@ -181,15 +181,20 @@ export default function Hero() {
 
             {/* Stats */}
             <div className="flex gap-4 sm:gap-8 lg:gap-10">
-              <div className="text-center">
+              <a
+                href="https://www.upwork.com/freelancers/~01fd4e5b112fcd6443"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-center group cursor-pointer"
+              >
                 <div className="flex justify-center mb-2">
-                  <div className="p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-full">
+                  <div className="p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-full group-hover:scale-110 transition-transform">
                     <StatsIcons.Upwork className="w-7 h-7 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
                 <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">$3000+</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{t.hero.earnedUpwork}</div>
-              </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 group-hover:text-primary-500 transition-colors">{t.hero.earnedUpwork}</div>
+              </a>
               <div className="text-center">
                 <div className="flex justify-center mb-2">
                   <div className="p-2.5 bg-accent-50 dark:bg-accent-900/20 rounded-full">

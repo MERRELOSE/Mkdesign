@@ -110,7 +110,12 @@ export default function Contact() {
             </div>
 
             {/* Availability Badge */}
-            <div className="glass rounded-2xl p-6">
+            <a
+              href="https://www.upwork.com/freelancers/~01fd4e5b112fcd6443"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block glass rounded-2xl p-6 hover:shadow-lg hover:border-primary-500/30 transition-all group"
+            >
               <div className="flex items-center gap-3 mb-3">
                 <span className="relative flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
@@ -118,10 +123,13 @@ export default function Contact() {
                 </span>
                 <span className="font-semibold text-gray-900 dark:text-white">{t.contact.availableTitle}</span>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                 {t.contact.availableDescription}
               </p>
-            </div>
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-primary-600 dark:text-primary-400 group-hover:underline">
+                View Upwork Profile →
+              </span>
+            </a>
           </motion.div>
 
           {/* Contact Form */}
