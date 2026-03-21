@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
@@ -51,11 +52,22 @@ export default function Navbar() {
     });
   }, []);
 
+  const pathname = usePathname();
+  const router = useRouter();
+
   const scrollToSection = (href: string) => {
+    setIsMobileMenuOpen(false);
+
+    if (pathname !== "/") {
+      // On a sub-page: navigate to home then scroll
+      router.push(`/${href}`);
+      return;
+    }
+
+    // On home page: smooth scroll
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
     }
   };
 
