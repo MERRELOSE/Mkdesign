@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://mkdesign-phi.vercel.app'),
+  metadataBase: new URL('https://kennedymerrelose.vercel.app'),
   title: {
     default: "Kennedy MERRELOSE - Full-Stack Developer Portfolio",
     template: "%s | Kennedy MERRELOSE"
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mkdesign-phi.vercel.app",
+    url: "https://kennedymerrelose.vercel.app",
     title: "Kennedy MERRELOSE - Full-Stack Developer",
     description: "Experienced Full-Stack Developer specializing in Laravel, React, Next.js, and Python.",
     siteName: "Kennedy MERRELOSE Portfolio",
@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     title: "Kennedy MERRELOSE - Full-Stack Developer",
     description: "Check out my latest web development projects and skills.",
     creator: "@MerreloseK",
+  },
+  verification: {
+    google: "2HAO6lrV_K0UYdKklRzVYkhUvxKc38rMxR9_ElhhOjE",
   },
   robots: {
     index: true,

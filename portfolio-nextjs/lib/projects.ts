@@ -167,7 +167,7 @@ export const projects: Project[] = [
       "/projects/portfolio/4.png",
     ],
     github: "https://github.com/MERRELOSE/Mkdesign",
-    live: "https://mkdesign-phi.vercel.app",
+    live: "https://kennedymerrelose.vercel.app",
     badge: null,
   },
 ];

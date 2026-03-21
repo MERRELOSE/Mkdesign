@@ -145,7 +145,7 @@ export default async function Image() {
             Available for Freelance
           </div>
           <div style={{ display: "flex" }}>📍 Cotonou, Benin</div>
-          <div style={{ display: "flex" }}>mkdesign-phi.vercel.app</div>
+          <div style={{ display: "flex" }}>kennedymerrelose.vercel.app</div>
         </div>
       </div>
     ),
