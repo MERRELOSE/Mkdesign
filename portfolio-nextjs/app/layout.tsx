@@ -3,6 +3,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://kennedymerrelose.vercel.app'),
@@ -13,13 +14,31 @@ export const metadata: Metadata = {
   description: "Portfolio of Kennedy MERRELOSE, a Full-Stack Developer based in Benin. Expert in Laravel, React, Next.js, and Python. Available for freelance projects.",
   keywords: [
     "Kennedy MERRELOSE",
+    "Kennedy Merrelose",
+    "MERRELOSE Kennedy",
+    "Merrelose",
     "Kennedy MERRELOSE Portfolio",
+    "Kennedy MERRELOSE Developer",
     "Full-Stack Developer Benin",
+    "Développeur Full-Stack Bénin",
+    "Développeur web Cotonou",
     "Laravel Developer",
+    "Développeur Laravel",
     "React Developer",
     "Next.js Expert",
-    "Freelance Web Developer"
+    "Freelance Web Developer",
+    "Développeur Freelance",
+    "SaaS Developer",
+    "Cotonou Developer",
+    "Benin Developer"
   ],
+  alternates: {
+    canonical: "https://kennedymerrelose.vercel.app",
+    languages: {
+      "en-US": "https://kennedymerrelose.vercel.app",
+      "fr-FR": "https://kennedymerrelose.vercel.app",
+    },
+  },
   authors: [{ name: "Kennedy MERRELOSE" }],
   creator: "Kennedy MERRELOSE",
   openGraph: {
@@ -59,6 +78,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <JsonLd />
+      </head>
       <body className="antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-950">
         <Providers>
           <Navbar />
