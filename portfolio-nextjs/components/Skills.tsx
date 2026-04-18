@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TechIcons } from "./TechIcons";
-import { CheckCircle2 } from "lucide-react";
+import { TechIcons, AIIcons } from "./TechIcons";
+import { CheckCircle2, Sparkles } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+
+type AIIconKey = keyof typeof AIIcons;
 
 const skillCategories = [
   {
@@ -22,6 +24,14 @@ const skillCategories = [
     key: "design" as const,
     skills: ["Figma", "UI/UX Principles", "Responsive Design", "Agile/Scrum", "VS Code"],
   },
+];
+
+const aiSkills: { name: string; icon: AIIconKey }[] = [
+  { name: "Claude Code", icon: "ClaudeCode" },
+  { name: "Cursor", icon: "Cursor" },
+  { name: "GitHub Copilot", icon: "Copilot" },
+  { name: "ChatGPT", icon: "ChatGPT" },
+  { name: "Gemini", icon: "Gemini" },
 ];
 
 const techStack = [
@@ -119,6 +129,53 @@ export default function Skills() {
               </motion.div>
             );
           })}
+
+          {/* AI-Assisted Development — Featured full-width card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="md:col-span-2 relative rounded-2xl p-5 sm:p-8 border border-primary-200 dark:border-primary-800/50 shadow-sm hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-primary-950/30 dark:via-gray-800 dark:to-accent-950/30 overflow-hidden"
+          >
+            {/* Decorative sparkle */}
+            <div className="absolute top-4 right-4 opacity-20">
+              <Sparkles className="w-24 h-24 text-primary-500" />
+            </div>
+
+            <div className="relative mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary-500 animate-pulse" />
+                {t.skills.categories.aiWorkflow.title}
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {t.skills.categories.aiWorkflow.description}
+              </p>
+            </div>
+
+            <motion.div
+              className="relative flex flex-wrap gap-2"
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
+              {aiSkills.map((skill) => {
+                const IconComponent = AIIcons[skill.icon];
+                return (
+                  <motion.span
+                    key={skill.name}
+                    variants={item}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="cursor-default inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 border border-primary-200 dark:border-primary-800/60 shadow-sm transition-colors hover:bg-primary-50 dark:hover:bg-primary-900/30"
+                  >
+                    <IconComponent className="w-4 h-4" />
+                    {skill.name}
+                  </motion.span>
+                );
+              })}
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Tech Stack Logos */}

@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send, Calendar, ArrowRight } from "lucide-react";
 import { useState, useRef } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import emailjs from "@emailjs/browser";
+
+const CAL_URL = process.env.NEXT_PUBLIC_CAL_URL || "https://cal.com/kennedy-denis-merrelose-8lvl9o/15min";
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -128,6 +130,28 @@ export default function Contact() {
               </p>
               <span className="inline-flex items-center gap-2 text-xs font-semibold text-primary-600 dark:text-primary-400 group-hover:underline">
                 View Upwork Profile →
+              </span>
+            </a>
+
+            {/* Book a Call */}
+            <a
+              href={CAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl p-6 bg-gradient-to-br from-primary-500 to-accent-500 hover:shadow-xl hover:shadow-primary-500/20 transition-all group"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 rounded-lg bg-white/20 backdrop-blur-sm">
+                  <Calendar className="w-5 h-5 text-white" />
+                </div>
+                <span className="font-semibold text-white">{t.contact.bookCallTitle}</span>
+              </div>
+              <p className="text-sm text-white/85 mb-4">
+                {t.contact.bookCallDescription}
+              </p>
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/15 hover:bg-white/25 backdrop-blur-sm px-4 py-2 rounded-full transition-colors">
+                {t.contact.bookCallButton}
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </span>
             </a>
           </motion.div>

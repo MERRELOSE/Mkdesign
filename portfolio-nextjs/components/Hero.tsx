@@ -6,6 +6,7 @@ import { ArrowDown, Github, Linkedin, Mail, ExternalLink, BadgeCheck, Award } fr
 import { StatsIcons } from "./TechIcons";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import Image from "next/image";
+import AnimatedNumber from "./AnimatedNumber";
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState(0);
@@ -192,7 +193,9 @@ export default function Hero() {
                     <StatsIcons.Upwork className="w-7 h-7 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">$3K+</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  <AnimatedNumber to={3} format={(v) => `$${Math.round(v)}K+`} />
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 group-hover:text-primary-500 transition-colors">{t.hero.earnedUpwork}</div>
               </a>
               <a
@@ -206,7 +209,9 @@ export default function Hero() {
                     <BadgeCheck className="w-7 h-7 text-green-600 dark:text-green-400" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">100%</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  <AnimatedNumber to={100} format={(v) => `${Math.round(v)}%`} />
+                </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 group-hover:text-primary-500 transition-colors">{t.hero.jobSuccess}</div>
               </a>
               <a
