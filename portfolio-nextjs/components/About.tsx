@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Database, Palette, Rocket } from "lucide-react";
+import { Code2, Bug, Rocket, Gauge } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function About() {
@@ -9,9 +9,9 @@ export default function About() {
 
   const services = [
     { icon: Code2, ...t.about.services.fullstack },
-    { icon: Database, ...t.about.services.backend },
-    { icon: Rocket, ...t.about.services.performance },
-    { icon: Palette, ...t.about.services.uiux },
+    { icon: Bug, ...t.about.services.debugging },
+    { icon: Rocket, ...t.about.services.features },
+    { icon: Gauge, ...t.about.services.performance },
   ];
 
   return (

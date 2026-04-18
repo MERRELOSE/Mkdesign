@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, ExternalLink, BadgeCheck, Award } from "lucide-react";
 import { StatsIcons } from "./TechIcons";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import Image from "next/image";
@@ -192,27 +192,37 @@ export default function Hero() {
                     <StatsIcons.Upwork className="w-7 h-7 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">$3000+</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">$3K+</div>
                 <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 group-hover:text-primary-500 transition-colors">{t.hero.earnedUpwork}</div>
               </a>
-              <div className="text-center">
+              <a
+                href="https://www.upwork.com/freelancers/~01fd4e5b112fcd6443"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-center group cursor-pointer"
+              >
                 <div className="flex justify-center mb-2">
-                  <div className="p-2.5 bg-accent-50 dark:bg-accent-900/20 rounded-full">
-                    <StatsIcons.Clients className="w-7 h-7 text-accent-600 dark:text-accent-400" />
+                  <div className="p-2.5 bg-green-50 dark:bg-green-900/20 rounded-full group-hover:scale-110 transition-transform">
+                    <BadgeCheck className="w-7 h-7 text-green-600 dark:text-green-400" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">10+</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{t.hero.enterpriseClients}</div>
-              </div>
-              <div className="text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">100%</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 group-hover:text-primary-500 transition-colors">{t.hero.jobSuccess}</div>
+              </a>
+              <a
+                href="https://www.upwork.com/freelancers/~01fd4e5b112fcd6443"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-center group cursor-pointer"
+              >
                 <div className="flex justify-center mb-2">
-                  <div className="p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-full">
-                    <StatsIcons.Experience className="w-7 h-7 text-primary-600 dark:text-primary-400" />
+                  <div className="p-2.5 bg-amber-50 dark:bg-amber-900/20 rounded-full group-hover:scale-110 transition-transform">
+                    <Award className="w-7 h-7 text-amber-600 dark:text-amber-400" />
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">4+</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{t.hero.yearsExperience}</div>
-              </div>
+                <div className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Top Rated</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 group-hover:text-primary-500 transition-colors">{t.hero.topRated}</div>
+              </a>
             </div>
           </motion.div>
         </div>
