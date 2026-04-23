@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, Calendar, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Send, Calendar, ArrowRight, MessageCircle } from "lucide-react";
 import { useState, useRef } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import emailjs from "@emailjs/browser";
 
 const CAL_URL = process.env.NEXT_PUBLIC_CAL_URL || "https://cal.com/kennedy-denis-merrelose-8lvl9o/15min";
+const WHATSAPP_NUMBER = "2290150902241";
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -152,6 +153,27 @@ export default function Contact() {
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/15 hover:bg-white/25 backdrop-blur-sm px-4 py-2 rounded-full transition-colors">
                 {t.contact.bookCallButton}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </span>
+            </a>
+
+            {/* WhatsApp */}
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.contact.whatsappDefaultMessage)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block glass rounded-2xl p-6 hover:shadow-lg hover:border-[#25D366]/30 transition-all group"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 rounded-lg bg-[#25D366]/15">
+                  <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                </div>
+                <span className="font-semibold text-gray-900 dark:text-white">{t.contact.whatsappTitle}</span>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                {t.contact.whatsappDescription}
+              </p>
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-[#25D366] group-hover:underline">
+                {t.contact.whatsappButton} →
               </span>
             </a>
           </motion.div>

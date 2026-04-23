@@ -4,6 +4,7 @@ import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import WhatsAppFloating from "@/components/WhatsAppFloating";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://kennedymerrelose.vercel.app'),
@@ -86,6 +87,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <WhatsAppFloating />
         </Providers>
       </body>
     </html>
