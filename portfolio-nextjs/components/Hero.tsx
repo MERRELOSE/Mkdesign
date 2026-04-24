@@ -194,7 +194,7 @@ export default function Hero() {
                   </div>
                 </div>
                 <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                  <AnimatedNumber to={3} format={(v) => `$${Math.round(v)}K+`} />
+                  <AnimatedNumber to={4} format={(v) => `$${Math.round(v)}K+`} />
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 group-hover:text-primary-500 transition-colors">{t.hero.earnedUpwork}</div>
               </a>
