@@ -11,6 +11,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
+  outputFileTracingIncludes: {
+    '/readme/[slug]': ['./readmes/**/*'],
+  },
 };
 
 module.exports = nextConfig;

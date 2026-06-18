@@ -30,11 +30,9 @@ export default async function ReadmePage({
   searchParams,
 }: {
   params: { slug: string };
-  searchParams: { key?: string };
+  searchParams: { admin?: string };
 }) {
-  const expectedKey = process.env.READMES_ACCESS_KEY;
-
-  if (!expectedKey || searchParams.key !== expectedKey) {
+  if (searchParams.admin !== "1") {
     notFound();
   }
 
