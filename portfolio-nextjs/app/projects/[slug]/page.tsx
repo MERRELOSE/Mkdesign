@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ExternalLink, Github, Lock, ChevronLeft, ChevronRight, Zap, Wrench, Eye } from "lucide-react";
 import { projects, getProjectBySlug } from "@/lib/projects";
 import { TechIcons } from "@/components/TechIcons";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,8 +39,16 @@ const techColors: Record<string, string> = {
 export default function ProjectPage() {
   const params = useParams();
   const router = useRouter();
+  const { t, language } = useLanguage();
   const project = getProjectBySlug(params.slug as string);
   const [currentImage, setCurrentImage] = useState(0);
+
+  const badgeLabel = (badgeType: string | null) => {
+    if (badgeType === "in-development") return t.projectDetail.badges.inDevelopment;
+    if (badgeType === "client-project") return t.projectDetail.badges.clientProject;
+    if (badgeType === "private") return t.projectDetail.badges.private;
+    return null;
+  };
 
   const prev = useCallback(() => {
     if (!project) return;
@@ -64,9 +73,9 @@ export default function ProjectPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Project not found</h1>
+          <h1 className="text-4xl font-bold mb-4">{t.projectDetail.notFound}</h1>
           <Link href="/#projects" className="text-primary-500 hover:underline">
-            Back to projects
+            {t.projectDetail.backToProjects}
           </Link>
         </div>
       </div>
@@ -93,7 +102,7 @@ export default function ProjectPage() {
           >
             <Image
               src={project.images[currentImage]}
-              alt={`${project.title} - ${currentImage + 1}`}
+              alt={`${project.title[language]} - ${currentImage + 1}`}
               fill
               sizes="100vw"
               className="object-cover sm:object-contain"
@@ -112,17 +121,17 @@ export default function ProjectPage() {
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-md text-white text-sm font-medium hover:bg-black/60 transition-colors"
           >
             <ArrowLeft size={16} />
-            Back to projects
+            {t.projectDetail.backToProjects}
           </Link>
 
-          {project.badge && (
+          {project.badgeType && (
             <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md ${
-              project.badge === "In Development"
+              project.badgeType === "in-development"
                 ? "bg-amber-500/20 text-amber-200 border border-amber-400/30"
                 : "bg-gray-500/20 text-gray-200 border border-gray-400/30"
             }`}>
-              {project.badge === "Private" || project.badge === "Client Project" ? <Lock size={12} /> : null}
-              {project.badge}
+              {project.badgeType === "private" || project.badgeType === "client-project" ? <Lock size={12} /> : null}
+              {badgeLabel(project.badgeType)}
             </span>
           )}
         </div>
@@ -133,14 +142,14 @@ export default function ProjectPage() {
             <button
               onClick={prev}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-colors"
-              aria-label="Previous"
+              aria-label={t.projectDetail.imageNavPrev}
             >
               <ChevronLeft size={22} />
             </button>
             <button
               onClick={next}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-colors"
-              aria-label="Next"
+              aria-label={t.projectDetail.imageNavNext}
             >
               <ChevronRight size={22} />
             </button>
@@ -167,7 +176,7 @@ export default function ProjectPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3"
           >
-            {project.title}
+            {project.title[language]}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -175,7 +184,7 @@ export default function ProjectPage() {
             transition={{ delay: 0.1 }}
             className="text-base sm:text-lg text-gray-300 max-w-2xl"
           >
-            {project.description}
+            {project.description[language]}
           </motion.p>
         </div>
       </div>
@@ -191,9 +200,9 @@ export default function ProjectPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
             >
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">About this project</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{t.projectDetail.about}</h2>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">
-                {project.details}
+                {project.details[language]}
               </p>
             </motion.div>
 
@@ -205,10 +214,10 @@ export default function ProjectPage() {
             >
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Zap size={22} className="text-primary-500" />
-                Key Features
+                {t.projectDetail.keyFeatures}
               </h2>
               <ul className="grid sm:grid-cols-2 gap-3">
-                {project.features.map((feature, i) => (
+                {project.features[language].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 rounded-xl p-3.5">
                     <span className="mt-1 w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></span>
                     {feature}
@@ -225,10 +234,10 @@ export default function ProjectPage() {
             >
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Wrench size={22} className="text-accent-500" />
-                Technical Challenges
+                {t.projectDetail.technicalChallenges}
               </h2>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">
-                {project.challenges}
+                {project.challenges[language]}
               </p>
             </motion.div>
 
@@ -241,7 +250,7 @@ export default function ProjectPage() {
               >
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <Eye size={22} className="text-primary-500" />
-                  Screenshots
+                  {t.projectDetail.screenshots}
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {project.images.map((img, i) => (
@@ -278,7 +287,7 @@ export default function ProjectPage() {
           >
             {/* Tech stack */}
             <div className="glass rounded-2xl p-5">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Tech Stack</h3>
+              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">{t.projectDetail.techStack}</h3>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => {
                   const IconComponent = TechIcons[tag as TechKey];
@@ -299,7 +308,7 @@ export default function ProjectPage() {
 
             {/* Links */}
             <div className="glass rounded-2xl p-5 space-y-3">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Links</h3>
+              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">{t.projectDetail.links}</h3>
 
               {project.github ? (
                 <a
@@ -309,7 +318,7 @@ export default function ProjectPage() {
                   className="flex items-center gap-3 w-full px-4 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:border-primary-500 hover:text-primary-500 transition-colors text-sm"
                 >
                   <Github size={18} />
-                  View on GitHub
+                  {t.projectDetail.viewOnGitHub}
                 </a>
               ) : null}
 
@@ -321,21 +330,21 @@ export default function ProjectPage() {
                   className="flex items-center gap-3 w-full px-4 py-3 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-xl hover:shadow-lg transition-all text-sm"
                 >
                   <ExternalLink size={18} />
-                  Live Demo
+                  {t.projectDetail.liveDemo}
                 </a>
               ) : null}
 
               {!project.github && !project.live && (
                 <div className="flex items-center gap-3 px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium rounded-xl text-sm">
                   <Lock size={16} />
-                  {project.badge === "In Development" ? "Coming Soon" : "Private Project"}
+                  {project.badgeType === "in-development" ? t.projectDetail.comingSoon : t.projectDetail.privateProject}
                 </div>
               )}
             </div>
 
             {/* Project nav */}
             <div className="glass rounded-2xl p-5 space-y-3">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Other Projects</h3>
+              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">{t.projectDetail.otherProjects}</h3>
               {projects.filter((p) => p.slug !== project.slug).map((p) => (
                 <Link
                   key={p.slug}
@@ -345,14 +354,14 @@ export default function ProjectPage() {
                   <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 relative">
                     <Image
                       src={p.images[0]}
-                      alt={p.title}
+                      alt={p.title[language]}
                       fill
                       sizes="40px"
                       className="object-cover"
                       unoptimized
                     />
                   </div>
-                  <span className="font-medium line-clamp-1">{p.title}</span>
+                  <span className="font-medium line-clamp-1">{p.title[language]}</span>
                 </Link>
               ))}
             </div>
@@ -368,8 +377,8 @@ export default function ProjectPage() {
             >
               <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
               <div>
-                <div className="text-xs text-gray-400 dark:text-gray-500">Previous</div>
-                <div className="font-semibold text-sm">{prevProject.title}</div>
+                <div className="text-xs text-gray-400 dark:text-gray-500">{t.projectDetail.previous}</div>
+                <div className="font-semibold text-sm">{prevProject.title[language]}</div>
               </div>
             </Link>
           ) : <div />}
@@ -380,8 +389,8 @@ export default function ProjectPage() {
               className="group flex items-center gap-3 text-right text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
             >
               <div>
-                <div className="text-xs text-gray-400 dark:text-gray-500">Next</div>
-                <div className="font-semibold text-sm">{nextProject.title}</div>
+                <div className="text-xs text-gray-400 dark:text-gray-500">{t.projectDetail.next}</div>
+                <div className="font-semibold text-sm">{nextProject.title[language]}</div>
               </div>
               <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>

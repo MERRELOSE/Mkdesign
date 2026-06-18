@@ -82,7 +82,14 @@ function CardCarousel({ images, title }: { images: string[]; title: string }) {
 }
 
 export default function Projects() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const badgeLabel = (badgeType: string | null) => {
+    if (badgeType === "in-development") return t.projectDetail.badges.inDevelopment;
+    if (badgeType === "client-project") return t.projectDetail.badges.clientProject;
+    if (badgeType === "private") return t.projectDetail.badges.private;
+    return null;
+  };
 
   return (
     <section id="projects" className="py-14 sm:py-24 bg-white dark:bg-gray-900">
@@ -115,27 +122,27 @@ export default function Projects() {
                 href={`/projects/${project.slug}`}
                 className="group block relative glass rounded-2xl overflow-hidden hover:shadow-2xl smooth-transition transform hover:-translate-y-2"
               >
-                <CardCarousel images={project.images} title={project.title} />
+                <CardCarousel images={project.images} title={project.title[language]} />
 
-                {project.badge && (
+                {project.badgeType && (
                   <div className="absolute top-3 right-3 z-20">
                     <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md ${
-                      project.badge === "In Development"
+                      project.badgeType === "in-development"
                         ? "bg-amber-500/20 text-amber-200 border border-amber-400/30"
                         : "bg-gray-500/20 text-gray-200 border border-gray-400/30"
                     }`}>
-                      {project.badge === "Private" || project.badge === "Client Project" ? <Lock size={10} /> : null}
-                      {project.badge}
+                      {project.badgeType === "private" || project.badgeType === "client-project" ? <Lock size={10} /> : null}
+                      {badgeLabel(project.badgeType)}
                     </span>
                   </div>
                 )}
 
                 <div className="p-4 sm:p-6">
                   <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 smooth-transition">
-                    {project.title}
+                    {project.title[language]}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
-                    {project.description}
+                    {project.description[language]}
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
@@ -163,7 +170,7 @@ export default function Projects() {
                   <div className="flex gap-3">
                     <span className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-sm font-medium rounded-lg group-hover:shadow-lg smooth-transition">
                       <Eye size={16} />
-                      View Details
+                      {t.projects.viewDetails}
                     </span>
 
                     {project.github && (
