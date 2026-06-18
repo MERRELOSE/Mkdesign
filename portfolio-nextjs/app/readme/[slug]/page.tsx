@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -89,14 +90,23 @@ export default async function ReadmePage({
         ">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
             components={{
               img: ({ src, alt }) => {
                 const text = alt || "image";
-                return (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 my-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs font-mono not-prose">
-                    🖼 {text}
-                  </span>
-                );
+                const isLocalScreenshot =
+                  !!src && !src.startsWith("http") && !src.startsWith("//");
+
+                if (isLocalScreenshot) {
+                  return (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 my-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs font-mono not-prose">
+                      🖼 {text}
+                    </span>
+                  );
+                }
+
+                // eslint-disable-next-line @next/next/no-img-element
+                return <img src={src} alt={text} className="inline-block" />;
               },
               a: ({ href, children }) => {
                 const isExternal = href?.startsWith("http");
