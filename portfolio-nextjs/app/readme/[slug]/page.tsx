@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Link from "next/link";
 import type { Metadata } from "next";
+import CopyMarkdownButton from "@/components/CopyMarkdownButton";
 
 export const metadata: Metadata = {
   title: "Private README",
@@ -58,11 +59,14 @@ export default async function ReadmePage({
           <div className="flex items-start gap-3">
             <div className="text-amber-600 dark:text-amber-400 text-xl">🔒</div>
             <div className="flex-1 text-sm">
-              <p className="font-semibold text-amber-900 dark:text-amber-200">
-                Private preview — internal use only
-              </p>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <p className="font-semibold text-amber-900 dark:text-amber-200">
+                  Private preview — internal use only
+                </p>
+                <CopyMarkdownButton markdown={markdown} />
+              </div>
               <p className="mt-1 text-amber-800 dark:text-amber-300/80">
-                This is a preview of the README for the <code className="font-mono text-xs bg-amber-100 dark:bg-amber-900/30 px-1.5 py-0.5 rounded">{params.slug}</code> project. Screenshots referenced in the markdown will only render once the README is committed to the GitHub repo.
+                This is a preview of the README for the <code className="font-mono text-xs bg-amber-100 dark:bg-amber-900/30 px-1.5 py-0.5 rounded">{params.slug}</code> project. Use <strong>Copy markdown</strong> above to grab the source for the GitHub repo. Screenshots referenced in the markdown will only render once the README is committed there.
               </p>
               <Link
                 href="/"
