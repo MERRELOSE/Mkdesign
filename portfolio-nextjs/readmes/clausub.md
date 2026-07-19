@@ -1,16 +1,19 @@
 <div align="center">
 
-# ClauSub — AI Viral Subtitles
+# ClauSub — AI Viral Subtitles SaaS
 
-**Mobile app that auto-generates viral-style subtitles on short videos for TikTok, Reels & Shorts using AI.**
+**Mobile-first SaaS that turns short videos into viral subtitled clips using AI. Solo-built end-to-end: Laravel API, React Native app, Next.js web.**
 
+[![Live](https://img.shields.io/badge/Web-clausubai.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://clausubai.vercel.app)
+
+![Laravel](https://img.shields.io/badge/Laravel_11-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Expo](https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white)
-![Laravel](https://img.shields.io/badge/Laravel_11-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![OpenAI](https://img.shields.io/badge/Whisper-412991?style=for-the-badge&logo=openai&logoColor=white)
+![FFmpeg](https://img.shields.io/badge/FFmpeg-007808?style=for-the-badge&logo=ffmpeg&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![OpenAI](https://img.shields.io/badge/Whisper_AI-412991?style=for-the-badge&logo=openai&logoColor=white)
-![FFmpeg](https://img.shields.io/badge/FFmpeg-007808?style=for-the-badge&logo=ffmpeg&logoColor=white)
 
 </div>
 
@@ -18,11 +21,13 @@
 
 ## Overview
 
-ClauSub is a production-ready mobile application that leverages **OpenAI's Whisper API** to automatically transcribe and generate viral-style subtitles on short-form videos.
+ClauSub is a mobile-first SaaS I designed and shipped end-to-end — turning short videos (TikTok, Reels, Shorts) into viral subtitled clips via AI.
 
-The app processes videos through a fully asynchronous pipeline — from upload to final render — keeping the backend lightweight and the user experience fast.
+The differentiator vs Submagic / Opus Clip: **multilingual from day one** (8 languages: EN, FR, ES, PT, DE, ZH, JA, KO) to capture markets that anglo-centric competitors ignore.
 
-> **Why this matters:** typical solutions either run subtitle rendering on-device (slow, battery-hungry) or pay heavy egress costs by routing video bytes through their backend. ClauSub does **neither**: presigned uploads bypass the backend entirely, and rendering happens server-side on dedicated Redis-backed workers.
+Full stack shipped: Laravel 11 API, Expo mobile app (iOS + Android), Next.js 16 web app on Vercel, OpenAI Whisper + FFmpeg rendering pipeline, direct mobile → Backblaze B2 uploads via presigned URLs. **Backend never touches video bytes.** Growth loops built in.
+
+> **Live web app:** [clausubai.vercel.app](https://clausubai.vercel.app)
 
 ---
 
@@ -32,10 +37,21 @@ The app processes videos through a fully asynchronous pipeline — from upload t
 
 <table>
   <tr>
-    <td><img src="./screenshots/01-onboarding.png" width="200" alt="Onboarding" /></td>
-    <td><img src="./screenshots/02-style-picker.png" width="200" alt="Style picker" /></td>
-    <td><img src="./screenshots/03-rendering.png" width="200" alt="Rendering" /></td>
-    <td><img src="./screenshots/04-result.png" width="200" alt="Final result" /></td>
+    <td><img src="./screenshots/web-01-landing.png" width="400" alt="Web landing" /></td>
+    <td><img src="./screenshots/web-02-editor.png" width="400" alt="Web editor" /></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/web-03-styles.png" width="400" alt="Subtitle styles" /></td>
+    <td><img src="./screenshots/web-04-pricing.png" width="400" alt="Pricing" /></td>
+  </tr>
+</table>
+
+**Also available on mobile (iOS + Android)**
+
+<table>
+  <tr>
+    <td><img src="./screenshots/mobile-01.png" width="200" alt="Mobile home" /></td>
+    <td><img src="./screenshots/mobile-02.png" width="200" alt="Mobile editor" /></td>
   </tr>
 </table>
 
@@ -45,76 +61,102 @@ The app processes videos through a fully asynchronous pipeline — from upload t
 
 ## Key Features
 
-- **9 subtitle styles** with custom color picker (karaoke, pop-in, neon glow, emojis, ...)
-- **Whisper AI transcription** with auto-detection of 100+ languages
-- **Server-side FFmpeg rendering** using ASS stylesheets for word-level animations
-- **Presigned URL uploads** — backend never touches video data, zero egress cost
-- **RevenueCat in-app purchases** with idempotent webhooks
-- **8-language internationalization** (type-safe via i18next)
-- **3 specialized Redis queues** (transcribe / render / default) to isolate workloads
-- **Offline detection** with automatic retry on upload failure
-- **Onboarding flow** with language selection
-- **Google Sign-In** + classic authentication via Laravel Sanctum
+- 🎬 **9 subtitle styles** — Classic, Hormozi, MrBeast, karaoke, pop-in, neon glow, emojis, and more
+- 🎙 **OpenAI Whisper transcription** — word-level timestamps, 100+ languages
+- 🎞 **Server-side FFmpeg rendering** with ASS stylesheets for word-level karaoke animation
+- ☁️ **Zero-egress uploads** — mobile → Backblaze B2 directly via presigned URLs
+- 💳 **Stripe + RevenueCat billing** with idempotent webhooks (no double-credit)
+- 🌍 **8-language i18n** — i18next on mobile, next-intl on web
+- 🎁 **Growth loops** — bilateral referral, free-tier watermark, 3 signup credits
+- ⚡ **3 specialized Redis queues** (transcribe / render / default) — long jobs never starve fast ones
+- 📶 **Offline detection** with automatic upload retry
+- 🔐 **Google Sign-In + classic Sanctum authentication**
+- ⚡ **Performance** — a 30s clip is subtitled in under 90s
 
 ---
 
 ## Tech Stack
 
-### Mobile
+### Mobile (Expo React Native)
 | Layer | Technology |
 |---|---|
 | Framework | React Native (Expo SDK) |
 | Navigation | Expo Router |
-| State | React Context + hooks |
+| State | Zustand + TanStack Query |
 | i18n | i18next (8 languages, type-safe) |
 | Auth | Google Sign-In + Sanctum tokens |
 | Payments | RevenueCat |
 
-### Backend
+### Web (Next.js on Vercel)
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| UI | Tailwind CSS + Radix UI |
+| i18n | next-intl (8 locales) |
+| Deployment | Vercel |
+
+### Backend (Laravel + Railway)
 | Layer | Technology |
 |---|---|
 | Framework | Laravel 11 (PHP 8.3) |
 | Queues | Redis + Laravel Horizon |
 | AI | OpenAI Whisper API |
-| Rendering | FFmpeg with ASS stylesheets |
+| Rendering | FFmpeg + ASS stylesheets |
 | Storage | Backblaze B2 (S3-compatible, presigned URLs) |
 | Auth | Sanctum (API tokens) |
-| Deployment | Railway (Docker multi-stage builds) |
+| Billing | Stripe (web) + RevenueCat (mobile) |
+| Deployment | Railway (Docker multi-stage) |
 
 ---
 
 ## Architecture
 
 ```
-┌──────────────┐      ┌─────────────────────┐      ┌────────────────┐
-│ Mobile (RN)  │──1──▶│  Backblaze B2 (S3)  │      │  Laravel API   │
-│              │      │   presigned upload  │      │  + Horizon     │
-└──────┬───────┘      └─────────────────────┘      └───────┬────────┘
-       │                                                   │
-       │  2. notify backend (video uploaded)               │
-       └───────────────────────────────────────────────────┘
-                                                           │
-                                          ┌────────────────┼────────────────┐
-                                          ▼                ▼                ▼
-                                  ┌──────────────┐ ┌──────────────┐ ┌─────────────┐
-                                  │   QUEUE:     │ │   QUEUE:     │ │   QUEUE:    │
-                                  │  transcribe  │ │    render    │ │   default   │
-                                  │              │ │              │ │             │
-                                  │  Whisper AI  │ │   FFmpeg     │ │  Webhooks,  │
-                                  │  transcripts │ │   + ASS      │ │  receipts,  │
-                                  │              │ │   styling    │ │  notifs     │
-                                  └──────┬───────┘ └──────┬───────┘ └─────────────┘
-                                         │                │
-                                         └────────┬───────┘
-                                                  ▼
-                                          ┌──────────────┐
-                                          │   B2 again   │
-                                          │ (rendered)   │
-                                          └──────┬───────┘
-                                                 │
-                                          ┌──────▼───────┐
-                                          │ Push to user │
-                                          └──────────────┘
+   ┌─────────────┐              ┌─────────────┐
+   │   Mobile    │              │   Web App   │
+   │ (RN + Expo) │              │  (Next.js)  │
+   └──────┬──────┘              └──────┬──────┘
+          │                            │
+          │  ──1── presigned URL       │
+          ▼                            │
+   ┌─────────────┐                     │
+   │ Backblaze   │                     │
+   │  B2 (S3)    │                     │
+   └─────────────┘                     │
+                                       │
+                                       │
+   ┌───────────────────────────────────┴───────────────────────┐
+   │                    Laravel 11 API                         │
+   │                                                           │
+   │   Sanctum auth  │  Stripe + RevenueCat webhooks           │
+   │                                                           │
+   │   ┌────────────────────────────────────────────────┐      │
+   │   │       Horizon-managed Redis queues             │      │
+   │   │                                                │      │
+   │   │  ┌───────────┐  ┌───────────┐  ┌───────────┐   │      │
+   │   │  │transcribe │  │  render   │  │  default  │   │      │
+   │   │  │           │  │           │  │           │   │      │
+   │   │  │  Whisper  │  │  FFmpeg   │  │ webhooks, │   │      │
+   │   │  │  (words)  │  │  + ASS    │  │  emails,  │   │      │
+   │   │  │           │  │           │  │  notifs   │   │      │
+   │   │  └─────┬─────┘  └─────┬─────┘  └───────────┘   │      │
+   │   └────────┼──────────────┼──────────────────────  │      │
+   │            │              │                        │      │
+   └────────────┼──────────────┼────────────────────────┘      │
+                │              │                               │
+                └──────┬───────┘                               │
+                       ▼                                       │
+                ┌──────────────┐                               │
+                │  B2 (again)  │◀──────────────────────────────┘
+                │   rendered   │
+                └──────┬───────┘
+                       │
+                       ▼
+                ┌──────────────┐
+                │  Push to     │
+                │  end user    │
+                └──────────────┘
 ```
 
 ---
@@ -123,19 +165,23 @@ The app processes videos through a fully asynchronous pipeline — from upload t
 
 ### 1. Zero-egress video pipeline
 
-The backend **never receives video bytes**. Mobile clients upload directly to Backblaze B2 using presigned URLs generated by Laravel. The backend only stores object keys and orchestrates the pipeline. Bandwidth cost on the API tier = 0.
+The Laravel backend **never receives video bytes**. Mobile and web clients upload directly to Backblaze B2 using presigned URLs generated server-side. The backend only orchestrates the pipeline and stores object keys. Result: bandwidth cost on the API tier stays at zero, regardless of user traffic.
 
-### 2. Word-level karaoke subtitles via ASS
+### 2. 3 isolated Redis queues
 
-Whisper returns word-level timestamps. These are converted into [ASS stylesheets](https://en.wikipedia.org/wiki/SubStation_Alpha) where each word has its own `\k` timing tag, producing true karaoke-style highlights synced with the audio — not a naive line-by-line caption.
+`transcribe`, `render`, and `default` run on separate Horizon workers. A long FFmpeg render never blocks a webhook handler or a fast notification job. Each queue scales independently on Railway.
 
-### 3. Three isolated Redis queues
+### 3. Word-level karaoke via ASS
 
-`transcribe`, `render`, and `default` run on separate workers. This prevents a long render job from starving fast jobs (webhook handling, push notifications) and lets each worker scale independently on Railway.
+Whisper returns word-level timestamps. These are converted into ASS stylesheets where each word carries its own `\k` timing tag — producing true karaoke-style highlights synced with the audio, not naive line-by-line captions. 9 distinct styles produce consistent output at any resolution.
 
-### 4. Idempotent payment webhooks
+### 4. Idempotent billing webhooks
 
-RevenueCat retries failed webhooks. The backend uses a `payment_events` table with a unique `event_id` constraint, so re-deliveries are safely no-ops — no double-credit, no race conditions.
+Both Stripe and RevenueCat retry failed webhooks. The backend uses a `payment_events` table with a unique `event_id` constraint — re-deliveries are safely no-ops. No double-credit, no race conditions on subscription state.
+
+### 5. One codebase, three surfaces, 8 languages
+
+Mobile (i18next), web (next-intl), backend (Laravel Lang) all consume the same 8-locale content pool. Adding a language means updating one shared strings source, not touching 3 codebases individually.
 
 ---
 
@@ -145,10 +191,9 @@ RevenueCat retries failed webhooks. The backend uses a `payment_events` table wi
 
 <table>
   <tr>
-    <td><img src="./screenshots/05-home.png" width="180" /></td>
-    <td><img src="./screenshots/06-upload.png" width="180" /></td>
-    <td><img src="./screenshots/07-styles.png" width="180" /></td>
-    <td><img src="./screenshots/08-history.png" width="180" /></td>
+    <td><img src="./screenshots/web-05-referral.png" width="270" /></td>
+    <td><img src="./screenshots/web-06-history.png" width="270" /></td>
+    <td><img src="./screenshots/web-07-dashboard.png" width="270" /></td>
   </tr>
 </table>
 
@@ -156,47 +201,54 @@ RevenueCat retries failed webhooks. The backend uses a `payment_events` table wi
 
 ---
 
+## Growth loops
+
+- **Bilateral referral**: referrer + referee both get bonus credits
+- **Watermark on free tier**: passive brand exposure on every free clip shared to socials
+- **3 credits on signup**: instant hands-on trial, no card required
+- **Localized organic content**: 8 languages let the same feature ship internationally with zero re-translation cost
+
+---
+
 ## Getting Started
 
-> Source not public — project is currently in private development. The notes below describe how the system runs locally.
+> Source not public — private SaaS. Notes below describe how the system runs locally.
 
 ### Mobile
 
 ```bash
-# Install dependencies
 npm install
-
-# Configure .env (API base URL, RevenueCat key, Google client IDs)
 cp .env.example .env
+npx expo run:ios      # or run:android
+```
 
-# Run on iOS
-npx expo run:ios
+### Web
 
-# Run on Android
-npx expo run:android
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
 ```
 
 ### Backend
 
 ```bash
-# Install
 composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
 
-# Start API
-php artisan serve
-
-# Start workers (in 3 separate terminals or via Horizon)
-php artisan horizon
+php artisan serve       # API
+php artisan horizon     # queue workers
 ```
 
-Required environment:
+### Required environment
+
 - `OPENAI_API_KEY` — Whisper transcription
-- `B2_KEY_ID` / `B2_APPLICATION_KEY` / `B2_BUCKET` — storage
-- `REDIS_HOST` / `REDIS_PASSWORD` — queue backend
-- `REVENUECAT_WEBHOOK_SECRET` — payment verification
+- `B2_KEY_ID` / `B2_APPLICATION_KEY` / `B2_BUCKET` — direct-upload storage
+- `REDIS_HOST` / `REDIS_PASSWORD` — queues
+- `STRIPE_SECRET` / `STRIPE_WEBHOOK_SECRET` — web billing
+- `REVENUECAT_WEBHOOK_SECRET` — mobile billing
 
 ---
 
@@ -204,15 +256,21 @@ Required environment:
 
 ```
 clausub/
-├── mobile/                    # React Native app (Expo)
+├── mobile/                    # Expo React Native
 │   ├── app/                   # Expo Router screens
 │   ├── components/            # Shared UI
-│   ├── locales/               # 8 languages (en, fr, es, pt, de, it, ja, ko)
-│   └── services/              # API client, auth, RevenueCat
+│   ├── locales/               # 8 languages (en, fr, es, pt, de, zh, ja, ko)
+│   ├── stores/                # Zustand slices
+│   └── services/              # API client, RevenueCat, auth
 │
-└── backend/                   # Laravel 11 API
+├── web/                       # Next.js 16 (deployed on Vercel)
+│   ├── app/[locale]/          # next-intl locale routing
+│   ├── components/            # Tailwind + Radix UI
+│   └── messages/              # 8 locales
+│
+└── backend/                   # Laravel 11 API (Railway)
     ├── app/
-    │   ├── Http/Controllers/  # API endpoints
+    │   ├── Http/Controllers/  # API + webhooks
     │   ├── Jobs/              # Transcribe / Render / Notify
     │   └── Services/
     │       ├── Whisper/       # OpenAI transcription
@@ -224,15 +282,24 @@ clausub/
 
 ---
 
+## Roadmap
+
+- [ ] B2B tier: long video → 3 shorts repurposing (target: podcasters / educators, $49–99/mo)
+- [ ] Auto-caption translation across 8 languages
+- [ ] Template library for creators to reuse
+- [ ] Chrome extension: capture-and-caption straight from web videos
+
+---
+
 ## Author
 
-**Kennedy MERRELOSE** — Full-Stack Developer
+**Kennedy MERRELOSE** — Full-Stack Developer (Solo)
 
 - Portfolio: [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
-- Upwork: [Top Rated, 100% Job Success](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
+- Upwork: [Top Rated, 100% Job Success, $5K+ earned](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
 - GitHub: [@MERRELOSE](https://github.com/MERRELOSE)
 - Email: kennedymerrelose@gmail.com
 
 ---
 
-<sub>Built with care, deployed on Railway, and tested on real iOS + Android devices.</sub>
+<sub>Built solo, deployed on Railway + Vercel, currently in launch phase.</sub>

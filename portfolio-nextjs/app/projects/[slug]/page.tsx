@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ExternalLink, Github, Lock, ChevronLeft, ChevronRight, Zap, Wrench, Eye } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Lock, ChevronLeft, ChevronRight, Zap, Wrench, Eye, Smartphone } from "lucide-react";
 import { projects, getProjectBySlug } from "@/lib/projects";
 import { TechIcons } from "@/components/TechIcons";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
@@ -32,6 +32,8 @@ const techColors: Record<string, string> = {
   "WebSocket": "bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400",
   "FFmpeg": "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400",
   "Whisper AI": "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200",
+  "OpenAI API": "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200",
+  "FastAPI": "bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400",
   "Expo": "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200",
   "Docker": "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
 };
@@ -272,6 +274,41 @@ export default function ProjectPage() {
                         unoptimized
                       />
                     </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Also on Mobile */}
+            {project.mobileImages && project.mobileImages.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55 }}
+                className="rounded-2xl border border-primary-200/50 dark:border-primary-800/30 bg-gradient-to-br from-primary-50/40 via-white to-accent-50/30 dark:from-primary-950/20 dark:via-gray-900 dark:to-accent-950/20 p-6 sm:p-8"
+              >
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                  <Smartphone size={22} className="text-primary-500" />
+                  {t.projectDetail.alsoOnMobile}
+                </h2>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                  {t.projectDetail.alsoOnMobileSubtitle}
+                </p>
+                <div className="flex flex-wrap gap-4 sm:gap-6 justify-center">
+                  {project.mobileImages.map((img, i) => (
+                    <div
+                      key={i}
+                      className="relative w-[160px] sm:w-[180px] aspect-[9/19.5] rounded-[2rem] overflow-hidden border-[6px] border-gray-900 dark:border-gray-800 shadow-2xl bg-gray-900"
+                    >
+                      <Image
+                        src={img}
+                        alt={`Mobile screenshot ${i + 1}`}
+                        fill
+                        sizes="180px"
+                        className="object-cover"
+                        unoptimized
+                      />
+                    </div>
                   ))}
                 </div>
               </motion.div>

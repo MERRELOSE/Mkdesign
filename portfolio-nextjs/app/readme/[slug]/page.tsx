@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 
 const ALLOWED_SLUGS = [
   "clausub",
+  "bourseiq",
   "tourism-booking",
   "saas-dashboard",
   "shopify-hub",
