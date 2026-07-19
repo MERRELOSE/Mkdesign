@@ -2,7 +2,7 @@
 
 # Personal Portfolio
 
-**Modern developer portfolio built with Next.js 14 — featuring bilingual support, dynamic theming, and detailed project showcases.**
+**This site. Next.js 14 with bilingual EN/FR, dark/light theme, and a swappable color palette.**
 
 [![Live](https://img.shields.io/badge/Live-kennedymerrelose.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://kennedymerrelose.vercel.app)
 
@@ -19,11 +19,11 @@
 
 ## Overview
 
-My personal portfolio website — the one recruiters and clients land on first.
+The site you're on right now. Built from scratch with Next.js 14 App Router, TypeScript, and Tailwind CSS.
 
-Built from scratch with **Next.js 14 App Router**, **TypeScript**, and **Tailwind CSS**. Every piece is intentional: bilingual content, a swappable color palette, instant theme switching, animated project pages, a working contact form, and a perfect Lighthouse score.
+Bilingual EN/FR via React Context. Every color goes through semantic tokens (primary/accent), which means changing two lines in the Tailwind config swaps the entire site palette. Dark and light mode persist via localStorage with no flash of wrong theme on first paint. EmailJS-powered contact form. Dedicated project pages with image carousels. A small hidden preview route that renders each project's GitHub README so I can copy the markdown into a repo in one click.
 
-> **Live at:** [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
+> **Live:** [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
 
 ---
 
@@ -46,25 +46,26 @@ Built from scratch with **Next.js 14 App Router**, **TypeScript**, and **Tailwin
 
 ---
 
-## Key Features
+## Key features
 
-- ⚡ **Next.js 14 App Router** with TypeScript end-to-end
-- 🌐 **Bilingual support (EN/FR)** powered by React Context — instant UI switch, no reload
-- 🎨 **Centralized palette system** — swap the entire site's colors in 2 lines of Tailwind config
-- 🌓 **Dark / Light mode** with localStorage persistence and no FOUC
-- 🎬 **Framer Motion animations** throughout (hero, scroll reveals, page transitions)
-- ✉️ **EmailJS contact form** with styled HTML email templates
-- 📄 **Dynamic project pages** with image carousels and keyboard navigation
-- 📞 **Cal.com integration** for direct call booking
-- 💬 **WhatsApp floating button** for quick mobile contact
-- 🔍 **SEO optimized** — JSON-LD Person schema, Open Graph, sitemap, robots, multi-locale alternates
-- 📱 **Fully responsive** mobile-first design
-- 🚀 **Deployed on Vercel** with automatic CI/CD from GitHub
-- 📊 **Lighthouse 100/100** on performance, accessibility, best practices, SEO
+- Next.js 14 App Router with TypeScript end to end
+- Bilingual EN/FR via React Context, type-safe translations
+- Centralized palette: swap all colors in 2 lines of Tailwind config
+- Dark and light mode with localStorage persistence, no flash of wrong theme
+- Framer Motion animations (hero, scroll reveals, page transitions)
+- EmailJS contact form with styled HTML email templates
+- Dynamic project pages with image carousels and keyboard navigation
+- Cal.com integration for direct call booking
+- WhatsApp floating button for quick mobile contact
+- SEO: JSON-LD Person schema, Open Graph, sitemap, robots, multi-locale alternates
+- Hidden /readme/[slug] preview route with one-click copy to GitHub
+- Fully responsive mobile-first design
+- Deployed on Vercel with automatic CI/CD from GitHub
+- Lighthouse 100/100 on performance, accessibility, best practices, SEO
 
 ---
 
-## Tech Stack
+## Tech stack
 
 | Layer | Technology |
 |---|---|
@@ -76,7 +77,7 @@ Built from scratch with **Next.js 14 App Router**, **TypeScript**, and **Tailwin
 | Forms | EmailJS (browser SDK) |
 | i18n | Custom React Context (type-safe) |
 | Deployment | Vercel |
-| CI/CD | GitHub → Vercel automatic |
+| CI/CD | GitHub to Vercel automatic |
 
 ---
 
@@ -116,11 +117,11 @@ Built from scratch with **Next.js 14 App Router**, **TypeScript**, and **Tailwin
 
 ---
 
-## Technical Highlights
+## Technical notes
 
-### 1. Centralized, swappable color palette
+### Centralized, swappable color palette
 
-Every component uses **semantic Tailwind tokens** (`primary-500`, `accent-500`) instead of hard-coded colors. The actual palette is defined once in `tailwind.config.ts`:
+Every component uses semantic Tailwind tokens (`primary-500`, `accent-500`) instead of hard-coded colors. The palette lives in one place in `tailwind.config.ts`:
 
 ```ts
 colors: {
@@ -129,9 +130,9 @@ colors: {
 }
 ```
 
-**Want a green/violet site instead of blue/cyan? Change two lines.** Every gradient, hover state, glow, badge — everything updates.
+Want a green/violet site instead of blue/cyan? Change two lines. Every gradient, hover state, glow, badge updates.
 
-### 2. Type-safe bilingual system
+### Type-safe bilingual system
 
 All translations live in a single `translations.ts` file:
 
@@ -144,34 +145,34 @@ export const translations = {
 export type Translations = typeof translations.en;
 ```
 
-TypeScript enforces that `fr` has the exact same shape as `en` — **add a key in EN, the FR side fails to compile until you translate it**. No runtime missing-key bugs.
+TypeScript enforces that `fr` has the exact same shape as `en`. Add a key in EN, the FR side fails to compile until you translate it. No runtime missing-key bugs.
 
-### 3. Bilingual project data
+### Bilingual project data
 
 Project details (title, description, features, challenges) are localized at the data layer:
 
 ```ts
-title: { en: "ClauSub — AI Viral Subtitles", fr: "ClauSub — Sous-titres Viraux IA" },
+title: { en: "ClauSub, AI Viral Subtitles SaaS", fr: "ClauSub, SaaS de sous-titres viraux par IA" },
 features: { en: [...], fr: [...] },
 ```
 
-The detail page reads `project.title[language]` — switching language updates the entire page instantly.
+The detail page reads `project.title[language]`. Switching language updates the entire page instantly.
 
-### 4. Theme persistence without FOUC
+### Theme persistence without flash
 
-Dark mode is applied via a `dark` class on `<html>` before React hydrates, using a script in `<head>` that reads `localStorage`. **No flash of wrong theme** on first paint.
+Dark mode is applied via a `dark` class on `<html>` before React hydrates, using a script in `<head>` that reads `localStorage`. No flash of wrong theme on first paint.
 
-### 5. SEO that takes itself seriously
+### SEO that takes itself seriously
 
-- `app/sitemap.ts` — dynamic sitemap including all project pages
-- `app/robots.ts` — proper robots.txt
-- `app/opengraph-image.tsx` — generated OG image at build time
-- `JsonLd.tsx` — Person schema for rich snippets in Google
-- `metadata.alternates.languages` — hreflang declared for EN + FR
+- `app/sitemap.ts`: dynamic sitemap including all project pages
+- `app/robots.ts`: proper robots.txt
+- `app/opengraph-image.tsx`: generated OG image at build time
+- `JsonLd.tsx`: Person schema for rich snippets in Google
+- `metadata.alternates.languages`: hreflang declared for EN + FR
 
 ---
 
-## Screenshots
+## More screenshots
 
 <div align="center">
 
@@ -192,7 +193,7 @@ Dark mode is applied via a `dark` class on `<html>` before React hydrates, using
 
 ---
 
-## Getting Started
+## Getting started
 
 ### Prerequisites
 - Node.js 18+
@@ -234,7 +235,7 @@ npm start
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 portfolio-nextjs/
@@ -290,7 +291,7 @@ primary: { 500: '#ec4899' },  // pink
 accent:  { 500: '#f59e0b' },  // amber
 ```
 
-That's it — site-wide palette flip.
+Site-wide palette flip done.
 
 ### Add a language
 
@@ -325,19 +326,19 @@ Add an entry to `lib/projects.ts` with bilingual fields. The grid and detail pag
 
 ## Roadmap
 
-- [ ] Blog section (MDX-powered)
-- [ ] Search-engine-indexable project case studies
-- [ ] Spanish + Portuguese locales
-- [ ] Live GitHub stats widget
+- Blog section (MDX-powered)
+- Search-engine-indexable project case studies
+- Spanish and Portuguese locales
+- Live GitHub stats widget
 
 ---
 
 ## Author
 
-**Kennedy MERRELOSE** — Full-Stack Developer
+**Kennedy MERRELOSE**, Full-Stack Developer
 
 - Portfolio: [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
-- Upwork: [Top Rated, 100% Job Success](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
+- Upwork: [Top Rated, 100% Job Success, $5K+ earned](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
 - LinkedIn: [Kennedy MERRELOSE](https://www.linkedin.com/in/kennedy-merrelose-165092283)
 - GitHub: [@MERRELOSE](https://github.com/MERRELOSE)
 - Email: kennedymerrelose@gmail.com
@@ -347,7 +348,3 @@ Add an entry to `lib/projects.ts` with bilingual fields. The grid and detail pag
 ## License
 
 This portfolio is for personal use. Feel free to draw inspiration from the code, but please don't copy it directly.
-
----
-
-<sub>Built with ❤ — designed to load fast, look sharp, and convert.</sub>

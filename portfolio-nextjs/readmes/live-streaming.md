@@ -2,7 +2,7 @@
 
 # Live Streaming Platform
 
-**Complete live streaming system with real-time video broadcasting, live chat, and viewer invitations — integrated into an existing Laravel application.**
+**Full live streaming system with real-time video broadcasting, live chat, and viewer invitations. Integrated into an existing Laravel application.**
 
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![LiveKit](https://img.shields.io/badge/LiveKit-1F1F1F?style=for-the-badge&logo=livekit&logoColor=white)
@@ -17,11 +17,11 @@
 
 ## Overview
 
-A full live streaming solution integrated into an existing **Laravel** web application. The system uses **LiveKit** for WebRTC-based video broadcasting and **WebSockets** for real-time chat and presence.
+A full live streaming solution I integrated into an existing Laravel web application. Video broadcasting uses LiveKit over WebRTC. Chat and presence run on WebSockets.
 
-Viewers can be invited to join streams, interact via live chat, and hosts have full control over stream settings and participant management.
+Viewers can be invited to join a stream, interact via live chat, and hosts get full control over stream settings and participant management. Recording is supported with replay.
 
-> **The challenge wasn't streaming — LiveKit handles WebRTC well. The hard part was bridging a battle-tested LiveKit infrastructure with a PHP-first Laravel app**, keeping the chat snappy under load, and giving hosts fine-grained access control.
+The challenge wasn't streaming itself, LiveKit handles WebRTC well. The hard part was bridging LiveKit infrastructure with a PHP-first Laravel app, keeping chat snappy under load, and giving hosts fine-grained access control.
 
 ---
 
@@ -44,20 +44,20 @@ Viewers can be invited to join streams, interact via live chat, and hosts have f
 
 ---
 
-## Key Features
+## Key features
 
-- 📹 **Real-time video broadcasting** powered by LiveKit WebRTC
-- 💬 **Live chat** with WebSocket-driven messaging
-- ✉️ **Viewer invitation system** with per-stream access control
-- 🎛 **Host controls** for stream settings and participant management
-- ⏺ **Stream recording** with replay support
-- 👥 **Real-time viewer count** and engagement metrics
-- 🔇 **Mute / kick** participants from the host panel
-- 🌐 **Adaptive bitrate** via LiveKit simulcast
+- Real-time video broadcasting via LiveKit WebRTC
+- Live chat with WebSocket-driven messaging
+- Viewer invitation system with per-stream access control
+- Host controls for stream settings and participant management
+- Stream recording with replay support
+- Real-time viewer count and engagement metrics
+- Mute / kick participants from the host panel
+- Adaptive bitrate via LiveKit simulcast
 
 ---
 
-## Tech Stack
+## Tech stack
 
 | Layer | Technology |
 |---|---|
@@ -109,11 +109,11 @@ Viewers can be invited to join streams, interact via live chat, and hosts have f
 
 ---
 
-## Technical Highlights
+## Technical notes
 
-### 1. PHP ↔ LiveKit bridge
+### PHP to LiveKit bridge
 
-LiveKit's official server SDKs are Go / Node / Python — **no first-class PHP support**. So the bridge generates JWT room tokens directly (HS256 with proper grants) and calls LiveKit's HTTP admin API for room management:
+LiveKit's official server SDKs are Go, Node, and Python. There's no first-class PHP support. So the bridge generates JWT room tokens directly (HS256 with proper grants) and calls LiveKit's HTTP admin API for room management:
 
 ```php
 $token = LiveKit::tokenFor($user)
@@ -124,22 +124,22 @@ $token = LiveKit::tokenFor($user)
     ->sign();
 ```
 
-This avoids a separate microservice and keeps everything in Laravel.
+That avoids a separate microservice and keeps everything in Laravel.
 
-### 2. Hundreds of concurrent chat messages without lag
+### Hundreds of concurrent chat messages without lag
 
-Naive chat over standard WebSocket connections breaks at scale — every message broadcast goes through every server instance individually. The fix: a single Redis pub/sub channel per stream. Each Laravel instance subscribes once, fans out to its local connections. **Horizontal scaling is trivial.**
+Naive chat over standard WebSocket connections breaks at scale. Every message broadcast goes through every server instance individually. The fix: a single Redis pub/sub channel per stream. Each Laravel instance subscribes once, fans out to its local connections. Horizontal scaling is trivial.
 
-### 3. Access control per stream
+### Access control per stream
 
 Streams can be:
-- **Public** — anyone with the link can join
-- **Invite-only** — viewer email → unique signed URL with expiry
-- **Token-gated** — paid streams require a valid purchase before token issuance
+- Public: anyone with the link can join
+- Invite-only: viewer email gets a unique signed URL with expiry
+- Token-gated: paid streams require a valid purchase before token issuance
 
 The same `JoinStream` policy gates every entry path (link, invitation, ticket purchase).
 
-### 4. Recording with metadata sync
+### Recording with metadata sync
 
 When a host stops the stream, the recording is automatically:
 1. uploaded to S3-compatible storage
@@ -150,7 +150,7 @@ Replays use the same chat infrastructure with timestamps for "rewatch live chat"
 
 ---
 
-## Screenshots
+## More screenshots
 
 <div align="center">
 
@@ -166,9 +166,9 @@ Replays use the same chat infrastructure with timestamps for "rewatch live chat"
 
 ---
 
-## Getting Started
+## Getting started
 
-> Source not public — private client project. Setup notes below describe the integration.
+> Source is not public, this is a private client project. Setup notes below describe the integration.
 
 ### Prerequisites
 - PHP 8.1+
@@ -213,7 +213,7 @@ S3_ENDPOINT=
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 live-streaming/
@@ -251,22 +251,18 @@ live-streaming/
 
 ## Roadmap
 
-- [ ] Native mobile clients (React Native + LiveKit)
-- [ ] Stream donations / tipping
-- [ ] Co-host mode (multi-host streams)
-- [ ] AI-powered moderation for chat
+- Native mobile clients (React Native + LiveKit)
+- Stream donations / tipping
+- Co-host mode (multi-host streams)
+- AI-powered moderation for chat
 
 ---
 
 ## Author
 
-**Kennedy MERRELOSE** — Full-Stack Developer
+**Kennedy MERRELOSE**, Full-Stack Developer
 
 - Portfolio: [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
-- Upwork: [Top Rated, 100% Job Success](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
+- Upwork: [Top Rated, 100% Job Success, $5K+ earned](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
 - GitHub: [@MERRELOSE](https://github.com/MERRELOSE)
 - Email: kennedymerrelose@gmail.com
-
----
-
-<sub>Private client project — proves Laravel and LiveKit can play nicely together at scale.</sub>

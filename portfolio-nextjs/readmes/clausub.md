@@ -1,8 +1,8 @@
 <div align="center">
 
-# ClauSub — AI Viral Subtitles SaaS
+# ClauSub, AI Viral Subtitles SaaS
 
-**Mobile-first SaaS that turns short videos into viral subtitled clips using AI. Solo-built end-to-end: Laravel API, React Native app, Next.js web.**
+**A mobile-first SaaS that turns short videos into subtitled clips for TikTok, Reels, and Shorts. Built solo, end to end: Laravel API, React Native app, Next.js web.**
 
 [![Live](https://img.shields.io/badge/Web-clausubai.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://clausubai.vercel.app)
 
@@ -21,11 +21,11 @@
 
 ## Overview
 
-ClauSub is a mobile-first SaaS I designed and shipped end-to-end — turning short videos (TikTok, Reels, Shorts) into viral subtitled clips via AI.
+ClauSub is a mobile-first SaaS I designed and shipped end to end. You drop a short video, the app transcribes it with Whisper, then FFmpeg burns viral-style subtitles on top in 9 different visual styles (Classic, Hormozi, MrBeast, karaoke, and a few others).
 
-The differentiator vs Submagic / Opus Clip: **multilingual from day one** (8 languages: EN, FR, ES, PT, DE, ZH, JA, KO) to capture markets that anglo-centric competitors ignore.
+What I wanted to prove was that a solo dev can compete with Submagic or Opus Clip if you attack the markets they ignore. So ClauSub ships with 8 languages from day one: EN, FR, ES, PT, DE, ZH, JA, KO.
 
-Full stack shipped: Laravel 11 API, Expo mobile app (iOS + Android), Next.js 16 web app on Vercel, OpenAI Whisper + FFmpeg rendering pipeline, direct mobile → Backblaze B2 uploads via presigned URLs. **Backend never touches video bytes.** Growth loops built in.
+Full stack: Laravel 11 API, Expo mobile app (iOS + Android), Next.js 16 web app on Vercel, OpenAI Whisper plus FFmpeg rendering pipeline. Videos never touch the backend, they go straight to Backblaze B2 from the mobile client via presigned URL. Backend runs on Railway.
 
 > **Live web app:** [clausubai.vercel.app](https://clausubai.vercel.app)
 
@@ -59,23 +59,23 @@ Full stack shipped: Laravel 11 API, Expo mobile app (iOS + Android), Next.js 16 
 
 ---
 
-## Key Features
+## Key features
 
-- 🎬 **9 subtitle styles** — Classic, Hormozi, MrBeast, karaoke, pop-in, neon glow, emojis, and more
-- 🎙 **OpenAI Whisper transcription** — word-level timestamps, 100+ languages
-- 🎞 **Server-side FFmpeg rendering** with ASS stylesheets for word-level karaoke animation
-- ☁️ **Zero-egress uploads** — mobile → Backblaze B2 directly via presigned URLs
-- 💳 **Stripe + RevenueCat billing** with idempotent webhooks (no double-credit)
-- 🌍 **8-language i18n** — i18next on mobile, next-intl on web
-- 🎁 **Growth loops** — bilateral referral, free-tier watermark, 3 signup credits
-- ⚡ **3 specialized Redis queues** (transcribe / render / default) — long jobs never starve fast ones
-- 📶 **Offline detection** with automatic upload retry
-- 🔐 **Google Sign-In + classic Sanctum authentication**
-- ⚡ **Performance** — a 30s clip is subtitled in under 90s
+- 9 subtitle styles including Classic, Hormozi, MrBeast, karaoke, pop-in, neon glow, emojis
+- Whisper transcription with word-level timestamps, 100+ languages
+- FFmpeg rendering on the server using ASS stylesheets
+- Mobile uploads go directly to Backblaze B2 via presigned URLs (backend never touches video)
+- Stripe on web, RevenueCat on mobile, idempotent webhooks on both
+- 8-language i18n: i18next on mobile, next-intl on web
+- Growth loops built in: bilateral referral, free-tier watermark, 3 credits at signup
+- 3 separate Redis queues so long renders never block webhooks
+- Offline detection with automatic upload retry
+- Google Sign-In plus classic Sanctum auth
+- 30 second clip subtitled in under 90 seconds
 
 ---
 
-## Tech Stack
+## Tech stack
 
 ### Mobile (Expo React Native)
 | Layer | Technology |
@@ -96,13 +96,13 @@ Full stack shipped: Laravel 11 API, Expo mobile app (iOS + Android), Next.js 16 
 | i18n | next-intl (8 locales) |
 | Deployment | Vercel |
 
-### Backend (Laravel + Railway)
+### Backend (Laravel on Railway)
 | Layer | Technology |
 |---|---|
 | Framework | Laravel 11 (PHP 8.3) |
 | Queues | Redis + Laravel Horizon |
 | AI | OpenAI Whisper API |
-| Rendering | FFmpeg + ASS stylesheets |
+| Rendering | FFmpeg with ASS stylesheets |
 | Storage | Backblaze B2 (S3-compatible, presigned URLs) |
 | Auth | Sanctum (API tokens) |
 | Billing | Stripe (web) + RevenueCat (mobile) |
@@ -161,31 +161,31 @@ Full stack shipped: Laravel 11 API, Expo mobile app (iOS + Android), Next.js 16 
 
 ---
 
-## Technical Highlights
+## Technical notes
 
-### 1. Zero-egress video pipeline
+### Zero-egress video pipeline
 
-The Laravel backend **never receives video bytes**. Mobile and web clients upload directly to Backblaze B2 using presigned URLs generated server-side. The backend only orchestrates the pipeline and stores object keys. Result: bandwidth cost on the API tier stays at zero, regardless of user traffic.
+The Laravel backend never receives video bytes. Mobile and web clients upload directly to Backblaze B2 using presigned URLs generated server side. The backend only orchestrates the pipeline and stores object keys. API bandwidth stays at zero regardless of user traffic.
 
-### 2. 3 isolated Redis queues
+### 3 isolated Redis queues
 
 `transcribe`, `render`, and `default` run on separate Horizon workers. A long FFmpeg render never blocks a webhook handler or a fast notification job. Each queue scales independently on Railway.
 
-### 3. Word-level karaoke via ASS
+### Word-level karaoke via ASS
 
-Whisper returns word-level timestamps. These are converted into ASS stylesheets where each word carries its own `\k` timing tag — producing true karaoke-style highlights synced with the audio, not naive line-by-line captions. 9 distinct styles produce consistent output at any resolution.
+Whisper returns word-level timestamps. Those get converted into ASS stylesheets where each word carries its own `\k` timing tag. That gives you true karaoke-style highlights synced with the audio, not naive line-by-line captions. 9 distinct visual styles, consistent output at any resolution.
 
-### 4. Idempotent billing webhooks
+### Idempotent billing webhooks
 
-Both Stripe and RevenueCat retry failed webhooks. The backend uses a `payment_events` table with a unique `event_id` constraint — re-deliveries are safely no-ops. No double-credit, no race conditions on subscription state.
+Both Stripe and RevenueCat retry failed webhooks. The backend uses a `payment_events` table with a unique `event_id` constraint. Re-deliveries are safely no-ops. No double credits, no race conditions on subscription state.
 
-### 5. One codebase, three surfaces, 8 languages
+### One codebase, three surfaces, 8 languages
 
-Mobile (i18next), web (next-intl), backend (Laravel Lang) all consume the same 8-locale content pool. Adding a language means updating one shared strings source, not touching 3 codebases individually.
+Mobile (i18next), web (next-intl), backend (Laravel Lang) all read from the same 8-locale content pool. Adding a language means updating one shared strings source, not touching 3 codebases individually.
 
 ---
 
-## Screenshots
+## More screenshots
 
 <div align="center">
 
@@ -203,16 +203,16 @@ Mobile (i18next), web (next-intl), backend (Laravel Lang) all consume the same 8
 
 ## Growth loops
 
-- **Bilateral referral**: referrer + referee both get bonus credits
-- **Watermark on free tier**: passive brand exposure on every free clip shared to socials
-- **3 credits on signup**: instant hands-on trial, no card required
-- **Localized organic content**: 8 languages let the same feature ship internationally with zero re-translation cost
+- Bilateral referral: referrer and referee both get bonus credits
+- Watermark on the free tier: passive brand exposure on every free clip shared to socials
+- 3 credits on signup: instant hands-on trial, no card required
+- Localized organic content: 8 languages let the same feature ship internationally with zero re-translation cost
 
 ---
 
-## Getting Started
+## Getting started
 
-> Source not public — private SaaS. Notes below describe how the system runs locally.
+> Source is not public, this is a private SaaS. Notes below describe how the system runs locally.
 
 ### Mobile
 
@@ -244,15 +244,15 @@ php artisan horizon     # queue workers
 
 ### Required environment
 
-- `OPENAI_API_KEY` — Whisper transcription
-- `B2_KEY_ID` / `B2_APPLICATION_KEY` / `B2_BUCKET` — direct-upload storage
-- `REDIS_HOST` / `REDIS_PASSWORD` — queues
-- `STRIPE_SECRET` / `STRIPE_WEBHOOK_SECRET` — web billing
-- `REVENUECAT_WEBHOOK_SECRET` — mobile billing
+- `OPENAI_API_KEY` for Whisper transcription
+- `B2_KEY_ID` / `B2_APPLICATION_KEY` / `B2_BUCKET` for direct-upload storage
+- `REDIS_HOST` / `REDIS_PASSWORD` for queues
+- `STRIPE_SECRET` / `STRIPE_WEBHOOK_SECRET` for web billing
+- `REVENUECAT_WEBHOOK_SECRET` for mobile billing
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 clausub/
@@ -284,22 +284,18 @@ clausub/
 
 ## Roadmap
 
-- [ ] B2B tier: long video → 3 shorts repurposing (target: podcasters / educators, $49–99/mo)
-- [ ] Auto-caption translation across 8 languages
-- [ ] Template library for creators to reuse
-- [ ] Chrome extension: capture-and-caption straight from web videos
+- B2B tier: long video, 3 shorts repurposing (target: podcasters, educators, $49-99/mo)
+- Auto-caption translation across 8 languages
+- Template library for creators to reuse
+- Chrome extension: capture-and-caption straight from web videos
 
 ---
 
 ## Author
 
-**Kennedy MERRELOSE** — Full-Stack Developer (Solo)
+**Kennedy MERRELOSE**, Full-Stack Developer (solo)
 
 - Portfolio: [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
 - Upwork: [Top Rated, 100% Job Success, $5K+ earned](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
 - GitHub: [@MERRELOSE](https://github.com/MERRELOSE)
 - Email: kennedymerrelose@gmail.com
-
----
-
-<sub>Built solo, deployed on Railway + Vercel, currently in launch phase.</sub>

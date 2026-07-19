@@ -194,7 +194,7 @@ export default function ProjectPage() {
       {/* Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="grid lg:grid-cols-3 gap-10 lg:gap-14">
-          {/* Main content — 2/3 */}
+          {/* Main content :2/3 */}
           <div className="lg:col-span-2 space-y-10">
             {/* About */}
             <motion.div
@@ -315,7 +315,7 @@ export default function ProjectPage() {
             )}
           </div>
 
-          {/* Sidebar — 1/3 */}
+          {/* Sidebar :1/3 */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}

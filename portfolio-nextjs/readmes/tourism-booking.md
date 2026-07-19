@@ -2,7 +2,7 @@
 
 # Tourism Booking Platform
 
-**Full-stack web application for booking tourist site visits and participating in cultural events.**
+**Web app to book tourist site visits and cultural events. React frontend, Laravel backend, integrated payments.**
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
@@ -16,11 +16,9 @@
 
 ## Overview
 
-A comprehensive tourism platform that enables users to **discover, book, and pay** for tourist site visits and cultural events.
+A booking platform where users discover, book, and pay for tourist site visits and cultural events. React frontend, Laravel backend handling payments, reservations, and event scheduling. An admin dashboard on top for managing sites, events, guides, and analytics.
 
-The app combines a public-facing booking interface built with **React** and a robust **Laravel** backend handling payment processing, reservation management, and event scheduling. An admin dashboard provides complete control over sites, events, guides, and booking analytics.
-
-> **Built for a context where standard payment gateways aren't always available** — the system was designed around a local payment integration with proper conflict resolution for limited-capacity tours.
+Built for a context where standard global payment gateways are not always available, so the payment layer is a service abstraction that can swap providers without touching booking logic.
 
 ---
 
@@ -43,38 +41,37 @@ The app combines a public-facing booking interface built with **React** and a ro
 
 ---
 
-## Key Features
+## Key features
 
 ### For visitors
-- 🗓 **Online booking** for tourist sites with real-time availability
-- 🎭 **Event calendar** with cultural activities and guided tours
-- 💳 **Integrated payment processing**
-- ✉️ **Booking confirmation** with email notifications
-- ⭐ **User reviews and ratings**
-- 📱 **Mobile-first responsive design** for on-the-go booking
+- Online booking for tourist sites with real-time availability
+- Event calendar with cultural activities and guided tours
+- Integrated payment processing
+- Booking confirmation by email
+- User reviews and ratings
+- Mobile-first responsive design
 
 ### For administrators
-- 🏛 **Manage sites** — add, edit, archive tourist destinations
-- 🎪 **Manage events** — schedule activities with capacity limits
-- 👤 **Manage guides** — assign guides to tours and events
-- 📊 **Booking analytics** — track reservations, revenue, popular sites
-- 🔐 **Role-based access control**
+- Manage sites: add, edit, archive tourist destinations
+- Manage events: schedule activities with capacity limits
+- Manage guides: assign guides to tours and events
+- Booking analytics: track reservations, revenue, popular sites
+- Role-based access control
 
 ---
 
-## Tech Stack
+## Tech stack
 
 ### Frontend
-- **React** — component-based booking interface
-- **React Router** — client-side routing
-- **Axios** — API communication
-- **Tailwind CSS** — utility-first styling
+- React with React Router
+- Axios for API calls
+- Tailwind CSS
 
 ### Backend
-- **Laravel** — REST API, business logic, payment integration
-- **MySQL** — relational database
-- **Laravel Sanctum** — token-based authentication
-- **Laravel Mail** — booking confirmation emails
+- Laravel: REST API, business logic, payment integration
+- MySQL
+- Laravel Sanctum for token-based auth
+- Laravel Mail for booking confirmations
 
 ---
 
@@ -84,10 +81,10 @@ The app combines a public-facing booking interface built with **React** and a ro
 ┌─────────────────┐         ┌──────────────────┐         ┌────────────────┐
 │   React SPA     │◀───────▶│   Laravel API    │◀───────▶│     MySQL      │
 │                 │  REST   │                  │         │                │
-│  - Booking flow │         │  - Auth          │         │  - sites       │
-│  - Event browse │         │  - Reservations  │         │  - events      │
-│  - Reviews      │         │  - Payments      │         │  - bookings    │
-│  - Admin panel  │         │  - Notifications │         │  - users       │
+│  Booking flow   │         │  Auth            │         │  sites         │
+│  Event browse   │         │  Reservations    │         │  events        │
+│  Reviews        │         │  Payments        │         │  bookings      │
+│  Admin panel    │         │  Notifications   │         │  users         │
 └─────────────────┘         └────────┬─────────┘         └────────────────┘
                                      │
                                      ├──▶  Payment gateway
@@ -96,31 +93,31 @@ The app combines a public-facing booking interface built with **React** and a ro
 
 ---
 
-## Technical Highlights
+## Technical notes
 
-### 1. Booking conflict resolution
+### Booking conflict resolution
 
-Guided tours have **limited capacity**. To prevent double-bookings under concurrent requests, the booking flow uses **database-level locks** (`SELECT ... FOR UPDATE`) inside a transaction, and confirmation flows are queued to avoid race conditions during high-traffic windows (e.g. weekend tour openings).
+Guided tours have limited capacity. To avoid double-bookings under concurrent requests, the booking flow uses database-level locks (`SELECT ... FOR UPDATE`) inside a transaction, and confirmation flows are queued to prevent race conditions during high-traffic windows (like weekend tour openings).
 
-### 2. Payment integration in a constrained market
+### Payment integration in a constrained market
 
-Standard global gateways aren't always available in this context, so the payment layer is built as a **service abstraction** that can switch providers without touching booking logic. The current implementation handles webhook verification, refund flows, and reconciliation.
+Standard global gateways aren't reliable everywhere, so the payment layer is built as a service abstraction. That lets me switch providers without touching booking logic. Handles webhook verification, refund flows, and reconciliation.
 
-### 3. Capacity-aware availability
+### Capacity-aware availability
 
-Availability checks aren't a naive "is the date free?" — they account for:
+Availability checks aren't a naive "is the date free?". They account for:
 - maximum capacity per tour
 - minimum group size for paid guides
 - guide assignment conflicts (a guide can't lead two tours at once)
 - buffer time between tours at the same site
 
-### 4. Email notifications, decoupled
+### Emails decoupled from the request cycle
 
-All emails (booking confirmation, reminders, cancellation refunds) are **queued** so the user response time isn't blocked by SMTP latency.
+All emails (booking confirmation, reminders, cancellation refunds) are queued so user response time isn't blocked by SMTP latency.
 
 ---
 
-## Screenshots
+## More screenshots
 
 <div align="center">
 
@@ -136,7 +133,7 @@ All emails (booking confirmation, reminders, cancellation refunds) are **queued*
 
 ---
 
-## Getting Started
+## Getting started
 
 ### Prerequisites
 - PHP 8.1+
@@ -175,11 +172,11 @@ echo "VITE_API_URL=http://localhost:8000/api" > .env
 npm run dev
 ```
 
-App will be available at `http://localhost:5173`.
+App will be at `http://localhost:5173`.
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 tourism-booking/
@@ -209,22 +206,18 @@ tourism-booking/
 
 ## Roadmap
 
-- [ ] Multi-language support (FR / EN)
-- [ ] Tour guide mobile companion app
-- [ ] Loyalty points for returning visitors
-- [ ] WhatsApp booking notifications
+- Multi-language support (FR / EN)
+- Tour guide mobile companion app
+- Loyalty points for returning visitors
+- WhatsApp booking notifications
 
 ---
 
 ## Author
 
-**Kennedy MERRELOSE** — Full-Stack Developer
+**Kennedy MERRELOSE**, Full-Stack Developer
 
 - Portfolio: [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
-- Upwork: [Top Rated, 100% Job Success](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
+- Upwork: [Top Rated, 100% Job Success, $5K+ earned](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
 - GitHub: [@MERRELOSE](https://github.com/MERRELOSE)
 - Email: kennedymerrelose@gmail.com
-
----
-
-<sub>Made with Laravel & React — focused on reliability for real-world bookings.</sub>

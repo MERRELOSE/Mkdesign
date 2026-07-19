@@ -2,7 +2,7 @@
 
 # Shopify Multi-Store Hub
 
-**Connects multiple Shopify stores in real-time, centralizing products, orders, and inventory data into a clean Filament dashboard.**
+**Connects several Shopify stores in real time and centralizes them into a single Filament dashboard.**
 
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![Filament](https://img.shields.io/badge/Filament-F59E0B?style=for-the-badge&logo=laravel&logoColor=white)
@@ -17,11 +17,11 @@
 
 ## Overview
 
-Built for a client managing **multiple Shopify stores simultaneously**, this application connects to the Shopify API to pull real-time data from all connected shops and centralizes it into a single, clean dashboard built with **Laravel Filament**.
+Built for a client running several Shopify stores at once. The app connects to the Shopify API on each connected store, pulls real-time data, and centralizes everything into a single Laravel Filament dashboard.
 
-Store owners can monitor products, orders, and inventory across **all their shops from one interface** — without manually switching between Shopify admin panels.
+Store owners can monitor products, orders, and inventory across all their shops from one place without jumping between Shopify admin panels.
 
-> **The hard part isn't connecting one store.** It's handling rate limits across N stores at the same time, keeping data fresh, and pushing updates to the UI the moment they happen on any store. That's what this project solves.
+The hard part isn't connecting one store. It's handling rate limits across N stores at the same time, keeping data fresh, and pushing updates to the UI the moment they happen on any store. That's what this project solves.
 
 ---
 
@@ -44,20 +44,20 @@ Store owners can monitor products, orders, and inventory across **all their shop
 
 ---
 
-## Key Features
+## Key features
 
-- 🔌 **Real-time multi-store Shopify API integration**
-- 🎛 **Centralized dashboard** built with Laravel Filament
-- 📦 **Products, orders, and inventory monitoring** across all connected stores
-- 🔐 **Admin authentication** with role-based permissions
-- 🌓 **Dark / Light mode toggle**
-- 🔄 **Automatic data sync** with configurable intervals
-- ⚡ **Live updates** via WebSocket — orders appear instantly on the dashboard
-- 📊 **Aggregated analytics** across stores
+- Real-time multi-store Shopify API integration
+- Centralized dashboard built with Laravel Filament
+- Products, orders, and inventory monitoring across all connected stores
+- Admin authentication with role-based permissions
+- Dark and light mode toggle
+- Automatic data sync on configurable intervals
+- Live updates via WebSocket: orders appear on the dashboard within a second
+- Aggregated analytics across stores
 
 ---
 
-## Tech Stack
+## Tech stack
 
 | Layer | Technology |
 |---|---|
@@ -88,9 +88,9 @@ Store owners can monitor products, orders, and inventory across **all their shop
                 │                                          │
                 │  ┌──────────┐    ┌─────────────────────┐ │
                 │  │ Webhook  │───▶│  Sync Job (Redis)   │ │
-                │  │ Endpoint │    │  - Rate-limit aware │ │
-                │  └──────────┘    │  - Exp. backoff     │ │
-                │                  │  - Batch requests   │ │
+                │  │ Endpoint │    │  Rate-limit aware   │ │
+                │  └──────────┘    │  Exp. backoff       │ │
+                │                  │  Batch requests     │ │
                 │  ┌──────────┐    └──────────┬──────────┘ │
                 │  │ Scheduler│───────────────┘            │
                 │  │ (poll)   │                            │
@@ -98,32 +98,32 @@ Store owners can monitor products, orders, and inventory across **all their shop
                 │                                          │
                 │  ┌──────────────┐    ┌─────────────────┐ │
                 │  │   MySQL      │    │   WebSocket     │ │
-                │  │  - stores    │───▶│   broadcast     │ │
-                │  │  - products  │    │                 │ │
-                │  │  - orders    │    └────────┬────────┘ │
-                │  │  - inventory │             │          │
+                │  │  stores      │───▶│   broadcast     │ │
+                │  │  products    │    │                 │ │
+                │  │  orders      │    └────────┬────────┘ │
+                │  │  inventory   │             │          │
                 │  └──────────────┘             │          │
                 └───────────────────────────────┼──────────┘
                                                 ▼
                                        ┌────────────────┐
                                        │ Filament Admin │
-                                       │  - live tables │
-                                       │  - analytics   │
-                                       │  - dark mode   │
+                                       │  live tables   │
+                                       │  analytics     │
+                                       │  dark mode     │
                                        └────────────────┘
 ```
 
 ---
 
-## Technical Highlights
+## Technical notes
 
-### 1. Rate-limit-aware Shopify client
+### Rate-limit-aware Shopify client
 
 Shopify enforces strict API limits (40 requests/app/store with leaky-bucket replenishment). The hub talks to N stores simultaneously, so the client implements:
 
-- **per-store leaky bucket tracking** based on the `X-Shopify-Shop-Api-Call-Limit` response header
-- **exponential backoff with jitter** on `429 Too Many Requests`
-- **intelligent batching** of GraphQL queries so a single round-trip pulls multiple resources
+- per-store leaky bucket tracking based on the `X-Shopify-Shop-Api-Call-Limit` response header
+- exponential backoff with jitter on `429 Too Many Requests`
+- intelligent batching of GraphQL queries so a single round-trip pulls multiple resources
 
 ```php
 ShopifyClient::for($store)
@@ -131,7 +131,7 @@ ShopifyClient::for($store)
     ->graphql($query);
 ```
 
-### 2. Real-time order notifications
+### Real-time order notifications
 
 When Shopify fires an `orders/create` webhook, the flow is:
 
@@ -141,19 +141,19 @@ When Shopify fires an `orders/create` webhook, the flow is:
 4. WebSocket broadcasts `OrderCreated` to subscribed dashboards
 5. Filament table updates without a page reload
 
-Result: new orders show up **within ~1s** of being placed on any connected store.
+Result: new orders show up within about 1s of being placed on any connected store.
 
-### 3. Idempotent sync
+### Idempotent sync
 
-Both webhook-driven and polling-driven syncs use the Shopify `id` as the upsert key. Reprocessing the same event is safe — never creates duplicates, never overwrites local edits flagged with `is_locally_modified`.
+Both webhook-driven and polling-driven syncs use the Shopify `id` as the upsert key. Reprocessing the same event is safe: never creates duplicates, never overwrites local edits flagged with `is_locally_modified`.
 
-### 4. Horizontal scaling via Redis pub/sub
+### Horizontal scaling via Redis pub/sub
 
 WebSocket connections are stateless. Multiple app instances broadcast via Redis pub/sub, so you can scale the dashboard horizontally without sticky sessions.
 
 ---
 
-## Screenshots
+## More screenshots
 
 <div align="center">
 
@@ -169,16 +169,16 @@ WebSocket connections are stateless. Multiple app instances broadcast via Redis 
 
 ---
 
-## Getting Started
+## Getting started
 
-> Source not public — this is a client project. Setup notes below are for reference.
+> Source is not public, this is a client project. Setup notes below are for reference.
 
 ### Prerequisites
 - PHP 8.2+
 - Composer
 - MySQL 8+
 - Redis 7+
-- A Shopify Partner account + connected stores
+- A Shopify Partner account with connected stores
 - Custom Shopify app credentials (API key + secret)
 
 ### Installation
@@ -221,11 +221,11 @@ REVERB_APP_SECRET=
 
 ### Connecting a store
 
-In the Filament admin → **Stores** → **Add store** → OAuth redirect to Shopify → done. The hub registers webhooks automatically.
+In the Filament admin: **Stores** > **Add store** > OAuth redirect to Shopify > done. The hub registers webhooks automatically.
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 shopify-hub/
@@ -256,22 +256,18 @@ shopify-hub/
 
 ## Roadmap
 
-- [ ] WooCommerce adapter (same dashboard, multiple platforms)
-- [ ] Low-stock alerts via email / WhatsApp
-- [ ] Cross-store discount campaigns
-- [ ] Revenue forecasting
+- WooCommerce adapter (same dashboard, multiple platforms)
+- Low-stock alerts via email / WhatsApp
+- Cross-store discount campaigns
+- Revenue forecasting
 
 ---
 
 ## Author
 
-**Kennedy MERRELOSE** — Full-Stack Developer
+**Kennedy MERRELOSE**, Full-Stack Developer
 
 - Portfolio: [kennedymerrelose.vercel.app](https://kennedymerrelose.vercel.app)
-- Upwork: [Top Rated, 100% Job Success](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
+- Upwork: [Top Rated, 100% Job Success, $5K+ earned](https://www.upwork.com/freelancers/~01fd4e5b112fcd6443)
 - GitHub: [@MERRELOSE](https://github.com/MERRELOSE)
 - Email: kennedymerrelose@gmail.com
-
----
-
-<sub>Client project — built to handle the messy reality of multi-store Shopify operations.</sub>

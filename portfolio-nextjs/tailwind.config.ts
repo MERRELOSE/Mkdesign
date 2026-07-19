@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import colors from "tailwindcss/colors";
 
 // ╔══════════════════════════════════════════════════════╗
-// ║  PALETTE — Change these 2 lines to swap all colors  ║
+// ║  PALETTE: change these 2 lines to swap all colors   ║
 // ╚══════════════════════════════════════════════════════╝
 const primary = colors.emerald;   // Option A: emerald  |  Option B: amber
 const accent  = colors.teal;      // Option A: teal     |  Option B: orange

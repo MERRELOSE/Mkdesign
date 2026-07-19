@@ -62,7 +62,7 @@ export default async function ReadmePage({
             <div className="flex-1 text-sm">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <p className="font-semibold text-amber-900 dark:text-amber-200">
-                  Private preview — internal use only
+                  Private preview, internal use only
                 </p>
                 <CopyMarkdownButton markdown={markdown} />
               </div>

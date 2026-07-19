@@ -130,7 +130,7 @@ export default function Skills() {
             );
           })}
 
-          {/* AI-Assisted Development — Featured full-width card */}
+          {/* AI-Assisted Development: featured full-width card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
